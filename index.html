@@ -4,66 +4,297 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Cricbuzz Live</title>
+    <title>CRICKCAST · Live</title>
+
+    <!-- HLS.js for .m3u8 streams -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #222;
+        * {
+            box-sizing: border-box;
         }
 
+        body {
+            margin: 0;
+            background: #0b0b0b;
+            color: #f5f5f5;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* HEADER */
+
         header {
-            background: #111;
-            color: white;
-            padding: 20px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-bottom: 1px solid #1d1d1d;
+
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        /* MAIN */
+
+        main {
+            padding: 28px 22px 40px;
+        }
+
+        #status {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* GRID */
+
+        #streamGrid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, minmax(0, 1fr));
+
+            gap: 24px;
+        }
+
+        /* CARD */
+
+        .stream-card {
+            background: #111111;
+
+            border: 1px solid #202020;
+
+            border-radius: 16px;
+
+            padding: 22px 18px 18px;
+
+            min-height: 295px;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
             text-align: center;
         }
 
-        main {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .stream-card:hover {
+            transform: translateY(-3px);
+            border-color: #333;
+            background: #141414;
         }
 
-        .status {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        /* THUMBNAIL */
+
+        .thumbnail {
+            width: 160px;
+            height: 92px;
+
+            border-radius: 7px;
+
+            object-fit: cover;
+
+            background: #191919;
+
+            margin-bottom: 15px;
+
+            border: 1px solid #252525;
         }
 
-        .file {
-            background: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+        .default-thumbnail {
+            width: 160px;
+            height: 92px;
+
+            border-radius: 7px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #171717,
+                    #292929
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 35px;
+
+            margin-bottom: 15px;
         }
 
-        .file-name {
-            font-weight: bold;
+        /* TITLE */
+
+        .stream-title {
             font-size: 18px;
+
+            line-height: 1.35;
+
+            font-weight: 600;
+
+            color: #eeeeee;
+
+            margin-bottom: 14px;
         }
 
-        .file-type {
+        /* BADGE */
+
+        .stream-badge {
+            background: #202020;
+
             color: #777;
-            font-size: 14px;
-            margin-top: 5px;
+
+            border-radius: 20px;
+
+            padding: 6px 13px;
+
+            font-size: 12px;
+
+            margin-top: auto;
         }
 
-        pre {
+        .live {
+            color: #777;
+        }
+
+        /* PLAYER */
+
+        #playerContainer {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.94);
+
+            z-index: 9999;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
+        }
+
+        .player-box {
+            width: min(1100px, 95vw);
+
             background: #111;
-            color: #00ff88;
+
+            border-radius: 12px;
+
             padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            white-space: pre-wrap;
+
+            position: relative;
         }
 
-        .error {
-            color: red;
+        #videoPlayer {
+            width: 100%;
+
+            max-height: 75vh;
+
+            background: #000;
+
+            border-radius: 8px;
+        }
+
+        .player-title {
+            padding: 10px 5px 5px;
+
+            font-size: 18px;
+
+            font-weight: 600;
+        }
+
+        #closePlayer {
+            position: absolute;
+
+            right: 12px;
+            top: 10px;
+
+            width: 35px;
+            height: 35px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #222;
+
+            color: white;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            z-index: 5;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 70px 20px;
+
+            color: #666;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1400px) {
+
+            #streamGrid {
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 1050px) {
+
+            #streamGrid {
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 750px) {
+
+            #streamGrid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            main {
+                padding: 20px 12px;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            #streamGrid {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .stream-card {
+                min-height: 280px;
+            }
+
         }
     </style>
 </head>
@@ -71,138 +302,711 @@
 <body>
 
 <header>
-    <h1>🏏 Cricbuzz Live</h1>
-    <p>Data fetched directly from GitHub</p>
+    CRICKCAST · Live
 </header>
 
 <main>
 
-    <div class="status">
-        <strong>Repository:</strong>
-        Vk1817/cricbuzz
-        <br>
-        <strong>Status:</strong>
-        <span id="status">Loading...</span>
+    <div id="status">
+        Loading live streams...
     </div>
 
-    <h2>Repository Files</h2>
-
-    <div id="files">
-        Loading files...
-    </div>
-
-    <h2>Data Preview</h2>
-
-    <pre id="data">No data loaded yet.</pre>
+    <div id="streamGrid"></div>
 
 </main>
 
+
+<!-- VIDEO PLAYER -->
+
+<div id="playerContainer">
+
+    <div class="player-box">
+
+        <button id="closePlayer">
+            ×
+        </button>
+
+        <video
+            id="videoPlayer"
+            controls
+            autoplay
+            playsinline>
+        </video>
+
+        <div
+            id="playerTitle"
+            class="player-title">
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
-const OWNER = "Vk1817";
-const REPO = "cricbuzz";
-const BRANCH = "main";
+/*
+====================================================
+GITHUB CONFIGURATION
+====================================================
+*/
 
-const API_URL =
-    `https://api.github.com/repos/${OWNER}/${REPO}/contents/?ref=${BRANCH}`;
+const GITHUB_OWNER = "Vk1817";
+const GITHUB_REPO = "cricbuzz";
+const GITHUB_BRANCH = "main";
+
+/*
+    Leave this empty to search the ENTIRE repository.
+
+    If later your streams are inside:
+
+        streams/
+
+    change it to:
+
+        const STREAM_FOLDER = "streams";
+
+    Example:
+
+        const STREAM_FOLDER = "live";
+*/
+
+const STREAM_FOLDER = "";
+
+
+/*
+====================================================
+GITHUB API
+====================================================
+*/
+
+const TREE_API =
+    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
 
 const RAW_BASE =
-    `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
+    `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
 
 
-/* Fetch repository files */
-async function loadRepository() {
+/*
+====================================================
+SUPPORTED STREAM TYPES
+====================================================
+*/
 
-    const status = document.getElementById("status");
-    const filesContainer = document.getElementById("files");
-    const dataPreview = document.getElementById("data");
+const STREAM_EXTENSIONS = [
 
-    try {
+    ".m3u8",
 
-        const response = await fetch(API_URL);
+    ".m3u",
 
-        if (!response.ok) {
-            throw new Error("GitHub API request failed");
-        }
+    ".mp4",
 
-        const files = await response.json();
+    ".webm",
 
-        status.textContent = "Connected ✅";
+    ".ogg",
 
-        filesContainer.innerHTML = "";
+    ".mov"
 
-        if (!files.length) {
-            filesContainer.innerHTML =
-                "<p>No files found in repository.</p>";
-            return;
-        }
-
-        files.forEach(file => {
-
-            const div = document.createElement("div");
-
-            div.className = "file";
-
-            div.innerHTML = `
-                <div class="file-name">
-                    ${file.name}
-                </div>
-
-                <div class="file-type">
-                    Type: ${file.type}
-                </div>
-            `;
-
-            filesContainer.appendChild(div);
-
-        });
+];
 
 
-        /*
-         * Look for JSON files.
-         * If found, automatically load the first JSON file.
-         */
+/*
+====================================================
+ELEMENTS
+====================================================
+*/
 
-        const jsonFile = files.find(file =>
-            file.type === "file" &&
-            file.name.toLowerCase().endsWith(".json")
+const grid =
+    document.getElementById("streamGrid");
+
+const status =
+    document.getElementById("status");
+
+const playerContainer =
+    document.getElementById("playerContainer");
+
+const videoPlayer =
+    document.getElementById("videoPlayer");
+
+const playerTitle =
+    document.getElementById("playerTitle");
+
+const closePlayer =
+    document.getElementById("closePlayer");
+
+
+/*
+====================================================
+CHECK STREAM FILE
+====================================================
+*/
+
+function isStreamFile(path) {
+
+    const lower =
+        path.toLowerCase();
+
+    return STREAM_EXTENSIONS.some(
+        extension =>
+            lower.endsWith(extension)
+    );
+
+}
+
+
+/*
+====================================================
+GET FILE NAME
+====================================================
+*/
+
+function getFileName(path) {
+
+    const name =
+        path.split("/").pop();
+
+    return name
+        .replace(/\.[^/.]+$/, "")
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, char =>
+            char.toUpperCase()
         );
 
-        if (jsonFile) {
+}
 
-            const jsonResponse =
-                await fetch(RAW_BASE + jsonFile.name);
 
-            const jsonData =
-                await jsonResponse.json();
+/*
+====================================================
+GET RAW URL
+====================================================
+*/
 
-            dataPreview.textContent =
-                JSON.stringify(jsonData, null, 2);
+function getRawUrl(path) {
 
-        } else {
+    return RAW_BASE +
+        path
+            .split("/")
+            .map(encodeURIComponent)
+            .join("/");
 
-            dataPreview.textContent =
-                "No JSON file found in the repository.";
+}
+
+
+/*
+====================================================
+GET THUMBNAIL
+====================================================
+
+If your repository contains an image with the
+same filename, it will automatically be used.
+
+Example:
+
+match.m3u8
+match.jpg
+
+Then match.jpg becomes thumbnail.
+
+*/
+
+async function findThumbnail(path, allFiles) {
+
+    const base =
+        path
+            .replace(/\.[^/.]+$/, "");
+
+    const possibleExtensions = [
+
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp"
+
+    ];
+
+    for (
+        const extension
+        of possibleExtensions
+    ) {
+
+        const imagePath =
+            base + extension;
+
+        if (
+            allFiles.includes(imagePath)
+        ) {
+
+            return getRawUrl(
+                imagePath
+            );
 
         }
 
-    } catch (error) {
+    }
 
-        console.error(error);
+    return null;
 
-        status.innerHTML =
-            `<span class="error">Failed ❌</span>`;
+}
 
-        filesContainer.innerHTML =
-            `<p class="error">${error.message}</p>`;
+
+/*
+====================================================
+CREATE CARD
+====================================================
+*/
+
+function createCard(stream, thumbnail) {
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "stream-card";
+
+
+    /*
+        Thumbnail
+    */
+
+    if (thumbnail) {
+
+        const image =
+            document.createElement("img");
+
+        image.className =
+            "thumbnail";
+
+        image.src =
+            thumbnail;
+
+        image.alt =
+            stream.title;
+
+        card.appendChild(image);
+
+    } else {
+
+        const defaultImage =
+            document.createElement("div");
+
+        defaultImage.className =
+            "default-thumbnail";
+
+        defaultImage.textContent =
+            "🏏";
+
+        card.appendChild(
+            defaultImage
+        );
+
+    }
+
+
+    /*
+        Title
+    */
+
+    const title =
+        document.createElement("div");
+
+    title.className =
+        "stream-title";
+
+    title.textContent =
+        stream.title;
+
+    card.appendChild(title);
+
+
+    /*
+        Badge
+    */
+
+    const badge =
+        document.createElement("div");
+
+    badge.className =
+        "stream-badge";
+
+    badge.textContent =
+        "LIVE";
+
+    card.appendChild(badge);
+
+
+    /*
+        Click
+    */
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            openPlayer(
+                stream.url,
+                stream.title
+            );
+
+        }
+    );
+
+
+    return card;
+
+}
+
+
+/*
+====================================================
+OPEN PLAYER
+====================================================
+*/
+
+function openPlayer(url, title) {
+
+    playerContainer.style.display =
+        "flex";
+
+    playerTitle.textContent =
+        title;
+
+    /*
+        HLS STREAM
+    */
+
+    if (
+        url
+            .toLowerCase()
+            .includes(".m3u8")
+    ) {
+
+        if (
+            window.Hls &&
+            Hls.isSupported()
+        ) {
+
+            if (
+                window.currentHls
+            ) {
+
+                window.currentHls.destroy();
+
+            }
+
+            const hls =
+                new Hls();
+
+            window.currentHls =
+                hls;
+
+            hls.loadSource(url);
+
+            hls.attachMedia(
+                videoPlayer
+            );
+
+            hls.on(
+                Hls.Events.MANIFEST_PARSED,
+                () => {
+
+                    videoPlayer.play()
+                        .catch(() => {});
+
+                }
+            );
+
+        }
+
+        /*
+            Safari supports HLS natively.
+        */
+
+        else if (
+            videoPlayer.canPlayType(
+                "application/vnd.apple.mpegurl"
+            )
+        ) {
+
+            videoPlayer.src =
+                url;
+
+            videoPlayer.play()
+                .catch(() => {});
+
+        }
+
+    }
+
+    /*
+        MP4 / WEBM / OTHER
+    */
+
+    else {
+
+        videoPlayer.src =
+            url;
+
+        videoPlayer.play()
+            .catch(() => {});
 
     }
 
 }
 
 
-/* Start */
-loadRepository();
+/*
+====================================================
+CLOSE PLAYER
+====================================================
+*/
+
+function closeVideo() {
+
+    videoPlayer.pause();
+
+    videoPlayer.removeAttribute(
+        "src"
+    );
+
+    videoPlayer.load();
+
+    if (
+        window.currentHls
+    ) {
+
+        window.currentHls.destroy();
+
+        window.currentHls =
+            null;
+
+    }
+
+    playerContainer.style.display =
+        "none";
+
+}
+
+
+closePlayer.addEventListener(
+    "click",
+    closeVideo
+);
+
+
+playerContainer.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            playerContainer
+        ) {
+
+            closeVideo();
+
+        }
+
+    }
+);
+
+
+/*
+====================================================
+LOAD REPOSITORY
+====================================================
+*/
+
+async function loadStreams() {
+
+    try {
+
+        status.textContent =
+            "Fetching streams from GitHub...";
+
+
+        const response =
+            await fetch(TREE_API);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to access GitHub repository."
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+            GitHub tree
+        */
+
+        const files =
+            data.tree || [];
+
+
+        /*
+            Get all file paths
+        */
+
+        const allFiles =
+            files
+                .filter(
+                    file =>
+                        file.type === "blob"
+                )
+                .map(
+                    file =>
+                        file.path
+                );
+
+
+        /*
+            Find stream files
+        */
+
+        let streamFiles =
+            allFiles.filter(
+                isStreamFile
+            );
+
+
+        /*
+            Optional folder filter
+        */
+
+        if (
+            STREAM_FOLDER.trim() !== ""
+        ) {
+
+            streamFiles =
+                streamFiles.filter(
+                    path =>
+                        path.startsWith(
+                            STREAM_FOLDER + "/"
+                        )
+                );
+
+        }
+
+
+        /*
+            No streams
+        */
+
+        if (
+            streamFiles.length === 0
+        ) {
+
+            status.textContent =
+                "No stream files found.";
+
+            grid.innerHTML = `
+                <div class="empty">
+                    No live streams are currently available.
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        /*
+            Create stream objects
+        */
+
+        const streams = [];
+
+
+        for (
+            const path
+            of streamFiles
+        ) {
+
+            streams.push({
+
+                path: path,
+
+                title:
+                    getFileName(path),
+
+                url:
+                    getRawUrl(path)
+
+            });
+
+        }
+
+
+        /*
+            Create cards
+        */
+
+        for (
+            const stream
+            of streams
+        ) {
+
+            const thumbnail =
+                await findThumbnail(
+                    stream.path,
+                    allFiles
+                );
+
+
+            const card =
+                createCard(
+                    stream,
+                    thumbnail
+                );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+
+
+        status.textContent =
+            `${streams.length} live stream${streams.length === 1 ? "" : "s"} available`;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        status.textContent =
+            "Unable to load streams.";
+
+        grid.innerHTML = `
+            <div class="empty">
+                Failed to load streams from GitHub.
+                <br><br>
+                ${error.message}
+            </div>
+        `;
+
+    }
+
+}
+
+
+/*
+====================================================
+START
+====================================================
+*/
+
+loadStreams();
 
 </script>
 
