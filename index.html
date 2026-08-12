@@ -2,15 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width,initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CRICKCAST · Live</title>
 
-<link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/shaka-player@4.16.2/dist/controls.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shaka-player@4.16.2/dist/controls.css">
 
 <style>
+
+:root {
+    --accent: #00e5ff;
+    --accent-dim: #00e5ff33;
+    --tg: #229ED9;
+    --tg-dim: #229ED922;
+    --bg: #0a0a0a;
+    --card: #111111;
+    --border: #202020;
+    --live: #ef4444;
+}
 
 * {
     margin: 0;
@@ -18,19 +26,71 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     width: 100%;
     min-height: 100%;
-    background: #0a0a0a;
+    background: var(--bg);
     color: #fff;
-    font-family:
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
+::selection {
+    background: var(--accent-dim);
+    color: var(--accent);
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #232323; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+
+/* =========================
+   TELEGRAM TOP BAR
+========================= */
+
+#tg-bar {
+    width: 100%;
+    background: linear-gradient(90deg, #14202a, #0d1620);
+    border-bottom: 1px solid #1c2a33;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #9fd8f2;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+#tg-bar strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.tg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--tg);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.tg-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--tg-dim);
+}
+
+.tg-btn svg { width: 15px; height: 15px; fill: #fff; }
 
 
 /* =========================
@@ -38,22 +98,29 @@ body {
 ========================= */
 
 #header {
-
     width: 100%;
-
-    padding: 26px 20px 18px;
-
+    padding: 30px 20px 22px;
     border-bottom: 1px solid #171717;
-
     text-align: center;
+    background:
+        radial-gradient(circle at 50% -20%, var(--accent-dim), transparent 60%);
 }
 
 #header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    background: linear-gradient(90deg, #ffffff, var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
 
-    font-size: 22px;
-
-    font-weight: 700;
-
+#header p.tagline {
+    margin-top: 6px;
+    color: #777;
+    font-size: 12.5px;
     letter-spacing: .3px;
 }
 
@@ -63,13 +130,9 @@ body {
 ========================= */
 
 #status {
-
     text-align: center;
-
     color: #666;
-
     font-size: 13px;
-
     padding: 22px 10px;
 }
 
@@ -79,16 +142,12 @@ body {
 ========================= */
 
 #ch-grid {
-
     width: 100%;
-
-    padding: 0 22px 40px;
-
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 22px 60px;
     display: grid;
-
-    grid-template-columns:
-        repeat(5, minmax(0, 1fr));
-
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 24px;
 }
 
@@ -98,43 +157,40 @@ body {
 ========================= */
 
 .ch-card {
-
-    background: #111;
-
-    border: 1px solid #202020;
-
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: 16px;
-
     padding: 28px 18px 20px;
-
     min-height: 295px;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     text-align: center;
-
     cursor: pointer;
-
     text-decoration: none;
+    overflow: hidden;
+    transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
 
-    transition:
-        transform .2s ease,
-        background .2s ease,
-        border-color .2s ease;
+.ch-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent-dim), transparent 55%);
+    opacity: 0;
+    transition: opacity .25s ease;
+    pointer-events: none;
 }
 
 .ch-card:hover {
-
-    transform: translateY(-3px);
-
+    transform: translateY(-4px);
     background: #141414;
-
-    border-color: #303030;
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(0,229,255,.08);
 }
+
+.ch-card:hover::before { opacity: 1; }
 
 
 /* =========================
@@ -142,17 +198,11 @@ body {
 ========================= */
 
 .ch-logo {
-
     width: 160px;
-
     height: 92px;
-
     object-fit: cover;
-
     border-radius: 7px;
-
     background: #191919;
-
     margin-bottom: 17px;
 }
 
@@ -162,40 +212,41 @@ body {
 ========================= */
 
 .ch-name {
-
     color: #eeeeee;
-
     font-size: 18px;
-
     font-weight: 600;
-
     line-height: 1.35;
-
     margin-bottom: 15px;
+    z-index: 1;
 }
 
 
 /* =========================
-   TIME
+   TIME / LIVE BADGE
 ========================= */
 
 .ch-badge {
-
     margin-top: auto;
-
     padding: 6px 13px;
-
     border-radius: 20px;
-
     background: #202020;
-
     color: #777;
-
     font-size: 12px;
-
     text-transform: uppercase;
-
     letter-spacing: .2px;
+    z-index: 1;
+}
+
+.ch-badge.live {
+    color: var(--live);
+    border: 1px solid var(--live);
+    background: rgba(239,68,68,.08);
+    animation: pulse-live 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-live {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,.4); }
+    50% { box-shadow: 0 0 0 5px rgba(239,68,68,0); }
 }
 
 
@@ -204,39 +255,25 @@ body {
 ========================= */
 
 #player-page {
-
     position: fixed;
-
     inset: 0;
-
     background: #000;
-
     display: none;
-
     z-index: 9999;
-
     align-items: center;
-
     justify-content: center;
 }
 
 #video-container {
-
     position: relative;
-
     width: 100%;
-
     height: 100%;
 }
 
 #video {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: contain;
-
     background: #000;
 }
 
@@ -246,28 +283,16 @@ body {
 ========================= */
 
 #player-title {
-
     position: absolute;
-
     top: 15px;
-
-    left: 15px;
-
+    left: 65px;
     right: 15px;
-
     z-index: 10;
-
     color: #fff;
-
     font-size: 14px;
-
-    background:
-        rgba(0,0,0,.65);
-
+    background: rgba(0,0,0,.65);
     padding: 9px 13px;
-
     border-radius: 7px;
-
     pointer-events: none;
 }
 
@@ -277,31 +302,54 @@ body {
 ========================= */
 
 #back {
-
     position: absolute;
-
     top: 15px;
-
     left: 15px;
-
     z-index: 20;
-
     border: 0;
-
-    background:
-        rgba(20,20,20,.9);
-
+    background: rgba(20,20,20,.9);
     color: white;
-
     width: 40px;
-
     height: 40px;
-
     border-radius: 50%;
-
     cursor: pointer;
-
     font-size: 20px;
+}
+
+
+/* =========================
+   WATERMARK (in-player, moving)
+========================= */
+
+#watermark {
+    position: absolute;
+    z-index: 15;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    opacity: .55;
+    text-shadow: 0 1px 3px rgba(0,0,0,.6);
+    transition: top 1.2s ease, left 1.2s ease, right 1.2s ease, bottom 1.2s ease;
+    user-select: none;
+}
+
+#watermark .wm-brand {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    color: #fff;
+}
+
+#watermark .wm-brand span { color: var(--accent); }
+
+#watermark .wm-handle {
+    font-size: 10.5px;
+    color: #cfeff5;
+    background: rgba(0,0,0,.35);
+    padding: 1px 6px;
+    border-radius: 8px;
 }
 
 
@@ -310,49 +358,27 @@ body {
 ========================= */
 
 #loading {
-
     position: fixed;
-
     inset: 0;
-
-    background: #0a0a0a;
-
+    background: var(--bg);
     z-index: 10000;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     flex-direction: column;
-
     gap: 15px;
 }
 
 .spinner {
-
     width: 35px;
-
     height: 35px;
-
     border-radius: 50%;
-
     border: 3px solid #222;
-
-    border-top-color: #ef4444;
-
-    animation:
-        spin 1s linear infinite;
+    border-top-color: var(--accent);
+    animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 
 /* =========================
@@ -360,82 +386,134 @@ body {
 ========================= */
 
 .empty {
-
     grid-column: 1 / -1;
-
     text-align: center;
-
     color: #666;
-
     padding: 70px 20px;
 }
+
+
+/* =========================
+   TELEGRAM POPUP MODAL
+========================= */
+
+#tg-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(3px);
+    z-index: 20000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#tg-modal {
+    width: min(380px, 100%);
+    background: linear-gradient(160deg, #101a20, #0a0a0a);
+    border: 1px solid #1c2a33;
+    border-radius: 18px;
+    padding: 28px 24px 22px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    animation: modal-in .25s ease;
+}
+
+@keyframes modal-in {
+    from { opacity: 0; transform: translateY(10px) scale(.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+#tg-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #1a1a1a;
+    border: none;
+    color: #999;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#tg-modal-close:hover { color: #fff; background: #262626; }
+
+.tg-modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--tg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.tg-modal-icon svg { width: 30px; height: 30px; fill: #fff; }
+
+#tg-modal h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+#tg-modal p {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+}
+
+.tg-modal-join {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--tg);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 10px;
+    transition: filter .15s ease;
+}
+
+.tg-modal-join:hover { filter: brightness(1.1); }
+
+.tg-modal-skip {
+    display: block;
+    margin-top: 12px;
+    color: #555;
+    font-size: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.tg-modal-skip:hover { color: #888; }
 
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:1400px) {
-
-    #ch-grid {
-
-        grid-template-columns:
-            repeat(4, minmax(0,1fr));
-    }
-
-}
-
-@media(max-width:1050px) {
-
-    #ch-grid {
-
-        grid-template-columns:
-            repeat(3, minmax(0,1fr));
-    }
-
-}
+@media(max-width:1400px) { #ch-grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+@media(max-width:1050px) { #ch-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
 
 @media(max-width:750px) {
-
-    #ch-grid {
-
-        grid-template-columns:
-            repeat(2, minmax(0,1fr));
-
-        gap: 15px;
-
-        padding: 0 12px 30px;
-    }
-
-    .ch-card {
-
-        min-height: 250px;
-
-        padding: 20px 12px;
-    }
-
-    .ch-logo {
-
-        width: 140px;
-
-        height: 80px;
-    }
-
-    .ch-name {
-
-        font-size: 15px;
-    }
-
+    #ch-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 15px; padding: 0 12px 30px; }
+    .ch-card { min-height: 250px; padding: 20px 12px; }
+    .ch-logo { width: 140px; height: 80px; }
+    .ch-name { font-size: 15px; }
+    #tg-bar { font-size: 12px; }
 }
 
-@media(max-width:480px) {
-
-    #ch-grid {
-
-        grid-template-columns: 1fr;
-    }
-
-}
+@media(max-width:480px) { #ch-grid { grid-template-columns: 1fr; } }
 
 
 /* =========================
@@ -443,50 +521,22 @@ body {
 ========================= */
 
 #player-message {
-
     position: absolute;
-
     left: 50%;
-
     top: 50%;
-
-    transform:
-        translate(-50%,-50%);
-
+    transform: translate(-50%,-50%);
     width: min(450px,90%);
-
     text-align: center;
-
-    background:
-        rgba(15,15,15,.95);
-
-    border:
-        1px solid #292929;
-
+    background: rgba(15,15,15,.95);
+    border: 1px solid #292929;
     border-radius: 12px;
-
     padding: 25px;
-
     display: none;
-
     z-index: 30;
 }
 
-#player-message h2 {
-
-    font-size: 18px;
-
-    margin-bottom: 10px;
-}
-
-#player-message p {
-
-    color: #888;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-}
+#player-message h2 { font-size: 18px; margin-bottom: 10px; }
+#player-message p { color: #888; font-size: 13px; line-height: 1.5; margin-bottom: 16px; }
 
 </style>
 </head>
@@ -500,13 +550,8 @@ body {
 ========================= -->
 
 <div id="loading">
-
     <div class="spinner"></div>
-
-    <div style="color:#666;font-size:13px;">
-        Loading cricket events...
-    </div>
-
+    <div style="color:#666;font-size:13px;">Loading cricket events...</div>
 </div>
 
 
@@ -516,19 +561,20 @@ body {
 
 <div id="home">
 
-    <header id="header">
-
-        <h1>
-            CRICKCAST · Live
-        </h1>
-
-    </header>
-
-
-    <div id="status">
-        Loading...
+    <div id="tg-bar">
+        <span>📢 Get live score alerts &amp; match links on <strong>CRICKCAST Telegram</strong></span>
+        <a class="tg-btn" id="tg-bar-btn" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M21.9 4.3c.3-1.1-.5-1.7-1.4-1.3L2.6 10.4c-1.1.4-1.1 1.1-.2 1.4l4.6 1.4 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.5 3.3c.8.5 1.4.2 1.6-.8L21.9 4.3zM7.9 12.6l9.5-6c.5-.3.9-.1.6.3l-8 7.4-.3 3.1-1.4-4.5z"/></svg>
+            Join Channel
+        </a>
     </div>
 
+    <header id="header">
+        <h1>CRICKCAST <span style="color:var(--accent)">·</span> Live</h1>
+        <p class="tagline">Every match. Every ball. No ads, no clutter.</p>
+    </header>
+
+    <div id="status">Loading...</div>
 
     <div id="ch-grid"></div>
 
@@ -543,34 +589,45 @@ body {
 
     <div id="video-container">
 
-        <button id="back">
-            ←
-        </button>
+        <button id="back">←</button>
 
         <div id="player-title"></div>
 
-        <video
-            id="video"
-            playsinline
-            controls>
-        </video>
+        <div id="watermark">
+            <div class="wm-brand">CRICK<span>CAST</span></div>
+            <div class="wm-handle" id="watermark-handle">@crickcast_live</div>
+        </div>
 
+        <video id="video" playsinline controls></video>
 
         <div id="player-message">
-
-            <h2>
-                Stream not available
-            </h2>
-
-            <p id="player-message-text">
-                This match does not currently
-                have a playable stream URL.
-            </p>
-
+            <h2>Stream not available</h2>
+            <p id="player-message-text">This match does not currently have a playable stream URL.</p>
+            <a class="tg-modal-join" id="player-message-tg" href="#" target="_blank" rel="noopener" style="max-width:260px;margin:0 auto;">
+                Get notified on Telegram
+            </a>
         </div>
 
     </div>
 
+</div>
+
+
+<!-- =========================
+     TELEGRAM POPUP
+========================= -->
+
+<div id="tg-modal-overlay">
+    <div id="tg-modal">
+        <button id="tg-modal-close">✕</button>
+        <div class="tg-modal-icon">
+            <svg viewBox="0 0 24 24"><path d="M21.9 4.3c.3-1.1-.5-1.7-1.4-1.3L2.6 10.4c-1.1.4-1.1 1.1-.2 1.4l4.6 1.4 1.8 5.5c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.5 3.3c.8.5 1.4.2 1.6-.8L21.9 4.3zM7.9 12.6l9.5-6c.5-.3.9-.1.6.3l-8 7.4-.3 3.1-1.4-4.5z"/></svg>
+        </div>
+        <h2>Never miss a match</h2>
+        <p>Join the CRICKCAST Telegram channel for instant match links, score alerts, and stream updates — straight to your phone.</p>
+        <a class="tg-modal-join" id="tg-modal-join-btn" href="#" target="_blank" rel="noopener">Join CRICKCAST Channel</a>
+        <button class="tg-modal-skip" id="tg-modal-skip">Maybe later</button>
+    </div>
 </div>
 
 
@@ -583,51 +640,112 @@ body {
 
 
 /* ==================================================
+   CONFIG — edit these two lines with your real channel
+================================================== */
+
+const TELEGRAM_URL    = "https://t.me/addlist/6qALMSdKoVVkNWI1";
+const TELEGRAM_HANDLE = "Join on Telegram";
+
+
+/* ==================================================
+   APPLY TELEGRAM CONFIG TO THE PAGE
+================================================== */
+
+document.getElementById("tg-bar-btn").href        = TELEGRAM_URL;
+document.getElementById("watermark-handle").textContent = TELEGRAM_HANDLE;
+document.getElementById("player-message-tg").href = TELEGRAM_URL;
+document.getElementById("tg-modal-join-btn").href  = TELEGRAM_URL;
+
+
+/* ==================================================
    CONFIGURATION
 ================================================== */
 
-const API =
-    "https://raw.githubusercontent.com/Vk1817/cricbuzz/main/willow.json";
+const API = "https://raw.githubusercontent.com/Vk1817/cricbuzz/main/willow.json";
 
 
 /* ==================================================
    ELEMENTS
 ================================================== */
 
-const loading =
-    document.getElementById("loading");
+const loading = document.getElementById("loading");
+const grid = document.getElementById("ch-grid");
+const status = document.getElementById("status");
+const home = document.getElementById("home");
+const playerPage = document.getElementById("player-page");
+const video = document.getElementById("video");
+const playerTitle = document.getElementById("player-title");
+const playerMessage = document.getElementById("player-message");
+const playerMessageText = document.getElementById("player-message-text");
+const back = document.getElementById("back");
+const watermark = document.getElementById("watermark");
 
-const grid =
-    document.getElementById("ch-grid");
-
-const status =
-    document.getElementById("status");
-
-const home =
-    document.getElementById("home");
-
-const playerPage =
-    document.getElementById("player-page");
-
-const video =
-    document.getElementById("video");
-
-const playerTitle =
-    document.getElementById("player-title");
-
-const playerMessage =
-    document.getElementById("player-message");
-
-const playerMessageText =
-    document.getElementById(
-        "player-message-text"
-    );
-
-const back =
-    document.getElementById("back");
-
+const tgOverlay = document.getElementById("tg-modal-overlay");
+const tgClose = document.getElementById("tg-modal-close");
+const tgSkip = document.getElementById("tg-modal-skip");
 
 let currentPlayer = null;
+let watermarkTimer = null;
+let hasShownPopup = false;
+
+
+/* ==================================================
+   TELEGRAM POPUP LOGIC
+================================================== */
+
+function showTelegramPopup() {
+
+    if (hasShownPopup) return;
+    hasShownPopup = true;
+    tgOverlay.style.display = "flex";
+}
+
+function hideTelegramPopup() {
+    tgOverlay.style.display = "none";
+}
+
+tgClose.addEventListener("click", hideTelegramPopup);
+tgSkip.addEventListener("click", hideTelegramPopup);
+tgOverlay.addEventListener("click", function (e) {
+    if (e.target === tgOverlay) hideTelegramPopup();
+});
+
+// show once, a few seconds after the homepage has loaded
+setTimeout(function () {
+    if (!location.search) showTelegramPopup();
+}, 4000);
+
+
+/* ==================================================
+   WATERMARK — repositions periodically inside the player
+================================================== */
+
+const watermarkSpots = [
+    { top: "70px", right: "18px", left: "auto", bottom: "auto" },
+    { top: "auto", right: "18px", left: "auto", bottom: "60px" },
+    { top: "70px", left: "18px", right: "auto", bottom: "auto" },
+    { top: "auto", left: "18px", right: "auto", bottom: "60px" }
+];
+
+function repositionWatermark() {
+    const spot = watermarkSpots[Math.floor(Math.random() * watermarkSpots.length)];
+    watermark.style.top = spot.top;
+    watermark.style.right = spot.right;
+    watermark.style.left = spot.left;
+    watermark.style.bottom = spot.bottom;
+}
+
+function startWatermark() {
+    repositionWatermark();
+    watermarkTimer = setInterval(repositionWatermark, 25000);
+}
+
+function stopWatermark() {
+    if (watermarkTimer) {
+        clearInterval(watermarkTimer);
+        watermarkTimer = null;
+    }
+}
 
 
 /* ==================================================
@@ -635,23 +753,8 @@ let currentPlayer = null;
 ================================================== */
 
 async function loadData() {
-
-    const response =
-        await fetch(
-            API + "?t=" + Date.now(),
-            {
-                cache: "no-store"
-            }
-        );
-
-    if (!response.ok) {
-
-        throw new Error(
-            "HTTP " + response.status
-        );
-
-    }
-
+    const response = await fetch(API + "?t=" + Date.now(), { cache: "no-store" });
+    if (!response.ok) throw new Error("HTTP " + response.status);
     return await response.json();
 }
 
@@ -662,115 +765,34 @@ async function loadData() {
 
 function createCard(match) {
 
-    const card =
-        document.createElement("a");
+    const card = document.createElement("a");
+    card.className = "ch-card";
+    card.href = "?id=" + encodeURIComponent(match.match_id);
 
-
-    card.className =
-        "ch-card";
-
-
-    /*
-        IMPORTANT:
-
-        Same architecture as the
-        working website.
-
-        Every match gets:
-
-        ?id=MATCH_ID
-    */
-
-    card.href =
-        "?id=" +
-        encodeURIComponent(
-            match.match_id
-        );
-
-
-    /* IMAGE */
-
-    const image =
-        document.createElement("img");
-
-    image.className =
-        "ch-logo";
-
-    image.src =
-        match.cover_image || "";
-
-    image.alt =
-        match.title || "Cricket";
-
-    image.loading =
-        "lazy";
-
-
-    image.onerror =
-        function() {
-
-            this.style.display =
-                "none";
-
-        };
-
-
+    const image = document.createElement("img");
+    image.className = "ch-logo";
+    image.src = match.cover_image || "";
+    image.alt = match.title || "Cricket";
+    image.loading = "lazy";
+    image.onerror = function () { this.style.display = "none"; };
     card.appendChild(image);
 
-
-    /* TITLE */
-
-    const title =
-        document.createElement("span");
-
-    title.className =
-        "ch-name";
-
-    title.textContent =
-        match.title ||
-        "Live Cricket Match";
-
-
+    const title = document.createElement("span");
+    title.className = "ch-name";
+    title.textContent = match.title || "Live Cricket Match";
     card.appendChild(title);
 
+    const badge = document.createElement("span");
+    badge.className = "ch-badge";
 
-    /* STATUS / TIME */
-
-    const badge =
-        document.createElement("span");
-
-    badge.className =
-        "ch-badge";
-
-
-    if (
-        String(match.status)
-            .toUpperCase() ===
-        "LIVE"
-    ) {
-
-        badge.textContent =
-            "● LIVE";
-
-        badge.style.color =
-            "#ef4444";
-
-        badge.style.border =
-            "1px solid #ef4444";
-
+    if (String(match.status).toUpperCase() === "LIVE") {
+        badge.textContent = "● LIVE";
+        badge.classList.add("live");
+    } else {
+        badge.textContent = match.time || "UPCOMING";
     }
-
-    else {
-
-        badge.textContent =
-            match.time ||
-            "UPCOMING";
-
-    }
-
 
     card.appendChild(badge);
-
 
     return card;
 }
@@ -782,49 +804,21 @@ function createCard(match) {
 
 function renderMatches(data) {
 
-    const matches =
-        Array.isArray(data.Matches)
-            ? data.Matches
-            : [];
+    const matches = Array.isArray(data.Matches) ? data.Matches : [];
 
-
-    grid.innerHTML =
-        "";
-
+    grid.innerHTML = "";
 
     if (!matches.length) {
-
-        grid.innerHTML = `
-            <div class="empty">
-                No cricket matches found.
-            </div>
-        `;
-
-        status.textContent =
-            "No matches available.";
-
+        grid.innerHTML = '<div class="empty">No cricket matches found.</div>';
+        status.textContent = "No matches available.";
         return;
     }
 
+    matches.forEach(function (match) { grid.appendChild(createCard(match)); });
 
-    matches.forEach(
-        function(match) {
+    status.textContent = matches.length + " cricket events available";
 
-            grid.appendChild(
-                createCard(match)
-            );
-
-        }
-    );
-
-
-    status.textContent =
-        matches.length +
-        " cricket events available";
-
-
-    loading.style.display =
-        "none";
+    loading.style.display = "none";
 }
 
 
@@ -832,21 +826,8 @@ function renderMatches(data) {
    FIND MATCH
 ================================================== */
 
-function findMatch(
-    matches,
-    id
-) {
-
-    return matches.find(
-        function(match) {
-
-            return String(
-                match.match_id
-            ) === String(id);
-
-        }
-    );
-
+function findMatch(matches, id) {
+    return matches.find(function (match) { return String(match.match_id) === String(id); });
 }
 
 
@@ -856,115 +837,46 @@ function findMatch(
 
 async function openPlayer(match) {
 
-    home.style.display =
-        "none";
+    home.style.display = "none";
+    playerPage.style.display = "flex";
 
-    playerPage.style.display =
-        "flex";
+    playerTitle.textContent = match.title || "CRICKCAST";
+    playerMessage.style.display = "none";
 
-
-    playerTitle.textContent =
-        match.title || "CRICKAST";
-
-
-    playerMessage.style.display =
-        "none";
-
-
-    /*
-        At the moment your willow.json
-        contains empty stream_url_alpha
-        values.
-
-        Therefore we do NOT pretend
-        there is a playable stream.
-    */
+    startWatermark();
 
     let streamUrl = "";
 
-
-    if (
-        typeof match.stream_url_alpha ===
-        "string"
-    ) {
-
-        streamUrl =
-            match.stream_url_alpha.trim();
-
+    if (typeof match.stream_url_alpha === "string") {
+        streamUrl = match.stream_url_alpha.trim();
     }
-
 
     if (!streamUrl) {
-
         playerMessageText.textContent =
-            "This match is listed in willow.json, " +
-            "but no playable stream URL is currently " +
-            "provided for it.";
-
-        playerMessage.style.display =
-            "block";
-
+            "This match is listed in willow.json, but no playable stream URL is currently provided for it.";
+        playerMessage.style.display = "block";
         return;
     }
-
-
-    /*
-        Only normal authorized stream URLs
-        are handled here.
-
-        HLS / DASH playback can be loaded
-        through Shaka when the source permits it.
-    */
 
     try {
 
         shaka.polyfill.installAll();
 
-
-        if (
-            !shaka.Player.isBrowserSupported()
-        ) {
-
-            throw new Error(
-                "Browser not supported."
-            );
-
+        if (!shaka.Player.isBrowserSupported()) {
+            throw new Error("Browser not supported.");
         }
 
-
-        currentPlayer =
-            new shaka.Player();
-
-
-        await currentPlayer.attach(
-            video
-        );
-
-
-        await currentPlayer.load(
-            streamUrl
-        );
-
-
+        currentPlayer = new shaka.Player();
+        await currentPlayer.attach(video);
+        await currentPlayer.load(streamUrl);
         await video.play();
 
+    } catch (error) {
 
-    }
+        console.error("Player error:", error);
 
-    catch(error) {
-
-        console.error(
-            "Player error:",
-            error
-        );
-
-
-        playerMessageText.textContent =
-            "The available stream could not " +
-            "be played in this browser.";
-
-        playerMessage.style.display =
-            "block";
+        playerMessageText.textContent = "The available stream could not be played in this browser.";
+        playerMessage.style.display = "block";
 
     }
 
@@ -978,45 +890,20 @@ async function openPlayer(match) {
 function closePlayer() {
 
     if (currentPlayer) {
-
-        try {
-
-            currentPlayer.destroy();
-
-        }
-
-        catch (_) {}
-
-        currentPlayer =
-            null;
+        try { currentPlayer.destroy(); } catch (_) {}
+        currentPlayer = null;
     }
 
+    stopWatermark();
 
     video.pause();
-
-    video.removeAttribute(
-        "src"
-    );
-
+    video.removeAttribute("src");
     video.load();
 
+    playerPage.style.display = "none";
+    home.style.display = "block";
 
-    playerPage.style.display =
-        "none";
-
-    home.style.display =
-        "block";
-
-
-    /*
-        Remove ?id= from URL
-    */
-
-    history.pushState(
-        {},
-        "",
-        location.pathname
-    );
+    history.pushState({}, "", location.pathname);
 
 }
 
@@ -1029,94 +916,36 @@ async function handleRoute() {
 
     try {
 
-        const data =
-            await loadData();
-
-
-        const matches =
-            Array.isArray(data.Matches)
-                ? data.Matches
-                : [];
-
-
-        const params =
-            new URLSearchParams(
-                location.search
-            );
-
-
-        const id =
-            params.get("id");
-
-
-        /*
-            HOME
-        */
+        const data = await loadData();
+        const matches = Array.isArray(data.Matches) ? data.Matches : [];
+        const params = new URLSearchParams(location.search);
+        const id = params.get("id");
 
         if (!id) {
-
-            renderMatches(
-                data
-            );
-
+            renderMatches(data);
             return;
-
         }
 
-
-        /*
-            MATCH PAGE
-        */
-
-        const match =
-            findMatch(
-                matches,
-                id
-            );
-
+        const match = findMatch(matches, id);
 
         if (!match) {
-
-            loading.style.display =
-                "none";
-
-            status.textContent =
-                "Match not found.";
-
+            loading.style.display = "none";
+            status.textContent = "Match not found.";
             return;
         }
 
+        loading.style.display = "none";
+        await openPlayer(match);
 
-        loading.style.display =
-            "none";
-
-
-        await openPlayer(
-            match
-        );
-
-    }
-
-    catch(error) {
+    } catch (error) {
 
         console.error(error);
 
+        loading.style.display = "none";
+        status.textContent = "Unable to load cricket data.";
 
-        loading.style.display =
-            "none";
-
-
-        status.textContent =
-            "Unable to load cricket data.";
-
-
-        grid.innerHTML = `
-            <div class="empty">
-                Failed to load willow.json
-                <br><br>
-                ${error.message}
-            </div>
-        `;
+        grid.innerHTML =
+            '<div class="empty">Failed to load willow.json<br><br>' + error.message + '</div>';
 
     }
 
@@ -1127,70 +956,35 @@ async function handleRoute() {
    BACK BUTTON
 ================================================== */
 
-back.addEventListener(
-    "click",
-    closePlayer
-);
+back.addEventListener("click", closePlayer);
 
-
-/* Browser back button */
-
-window.addEventListener(
-    "popstate",
-    function() {
-
-        closePlayer();
-
-        handleRoute();
-
-    }
-);
+window.addEventListener("popstate", function () {
+    closePlayer();
+    handleRoute();
+});
 
 
 /* ==================================================
    START
 ================================================== */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    handleRoute
-);
+document.addEventListener("DOMContentLoaded", handleRoute);
 
 
 /* ==================================================
    AUTO REFRESH
 ================================================== */
 
-setInterval(
-    async function() {
+setInterval(async function () {
 
-        /*
-            Only refresh the match list
-            while on the homepage.
-        */
+    if (!location.search) {
+        try {
+            const data = await loadData();
+            renderMatches(data);
+        } catch (_) {}
+    }
 
-        if (
-            !location.search
-        ) {
-
-            try {
-
-                const data =
-                    await loadData();
-
-                renderMatches(
-                    data
-                );
-
-            }
-
-            catch (_) {}
-
-        }
-
-    },
-    5 * 60 * 1000
-);
+}, 5 * 60 * 1000);
 
 </script>
 
