@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cricbuzz Live</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .status {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .file {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .file-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .file-type {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        pre {
+            background: #111;
+            color: #00ff88;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🏏 Cricbuzz Live</h1>
+    <p>Data fetched directly from GitHub</p>
+</header>
+
+<main>
+
+    <div class="status">
+        <strong>Repository:</strong>
+        Vk1817/cricbuzz
+        <br>
+        <strong>Status:</strong>
+        <span id="status">Loading...</span>
+    </div>
+
+    <h2>Repository Files</h2>
+
+    <div id="files">
+        Loading files...
+    </div>
+
+    <h2>Data Preview</h2>
+
+    <pre id="data">No data loaded yet.</pre>
+
+</main>
+
+<script>
+
+const OWNER = "Vk1817";
+const REPO = "cricbuzz";
+const BRANCH = "main";
+
+const API_URL =
+    `https://api.github.com/repos/${OWNER}/${REPO}/contents/?ref=${BRANCH}`;
+
+const RAW_BASE =
+    `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/`;
+
+
+/* Fetch repository files */
+async function loadRepository() {
+
+    const status = document.getElementById("status");
+    const filesContainer = document.getElementById("files");
+    const dataPreview = document.getElementById("data");
+
+    try {
+
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("GitHub API request failed");
+        }
+
+        const files = await response.json();
+
+        status.textContent = "Connected ✅";
+
+        filesContainer.innerHTML = "";
+
+        if (!files.length) {
+            filesContainer.innerHTML =
+                "<p>No files found in repository.</p>";
+            return;
+        }
+
+        files.forEach(file => {
+
+            const div = document.createElement("div");
+
+            div.className = "file";
+
+            div.innerHTML = `
+                <div class="file-name">
+                    ${file.name}
+                </div>
+
+                <div class="file-type">
+                    Type: ${file.type}
+                </div>
+            `;
+
+            filesContainer.appendChild(div);
+
+        });
+
+
+        /*
+         * Look for JSON files.
+         * If found, automatically load the first JSON file.
+         */
+
+        const jsonFile = files.find(file =>
+            file.type === "file" &&
+            file.name.toLowerCase().endsWith(".json")
+        );
+
+        if (jsonFile) {
+
+            const jsonResponse =
+                await fetch(RAW_BASE + jsonFile.name);
+
+            const jsonData =
+                await jsonResponse.json();
+
+            dataPreview.textContent =
+                JSON.stringify(jsonData, null, 2);
+
+        } else {
+
+            dataPreview.textContent =
+                "No JSON file found in the repository.";
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.innerHTML =
+            `<span class="error">Failed ❌</span>`;
+
+        filesContainer.innerHTML =
+            `<p class="error">${error.message}</p>`;
+
+    }
+
+}
+
+
+/* Start */
+loadRepository();
+
+</script>
+
+</body>
+</html>
