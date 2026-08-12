@@ -6,9 +6,9 @@ on:
 
   workflow_dispatch:
 
-  push:
-    branches:
-      - main
+concurrency:
+  group: cricbuzz-updater
+  cancel-in-progress: false
 
 jobs:
   update-file:
@@ -49,5 +49,7 @@ jobs:
           git diff --cached --quiet && echo "No changes to commit" && exit 0
 
           git commit -m "PrimeSport Database Updated ✅ [$(date +'%d-%m-%Y %H:%M')]"
+
+          git pull origin main --rebase
 
           git push origin main
