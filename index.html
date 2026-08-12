@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CRICKCAST · Live</title>
-
-    <!-- HLS.js for .m3u8 streams -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
     <style>
         * {
@@ -17,7 +15,7 @@
         body {
             margin: 0;
             background: #0b0b0b;
-            color: #f5f5f5;
+            color: #f1f1f1;
             font-family: Arial, Helvetica, sans-serif;
         }
 
@@ -25,6 +23,7 @@
 
         header {
             height: 72px;
+
             display: flex;
             align-items: center;
             justify-content: center;
@@ -33,25 +32,27 @@
 
             font-size: 22px;
             font-weight: 700;
-            letter-spacing: 0.3px;
         }
 
         /* MAIN */
 
         main {
-            padding: 28px 22px 40px;
+            padding: 28px 22px 50px;
         }
 
         #status {
             text-align: center;
-            color: #777;
+
+            color: #666;
+
+            font-size: 13px;
+
             margin-bottom: 25px;
-            font-size: 14px;
         }
 
         /* GRID */
 
-        #streamGrid {
+        #matches {
             display: grid;
 
             grid-template-columns:
@@ -62,105 +63,86 @@
 
         /* CARD */
 
-        .stream-card {
-            background: #111111;
+        .match-card {
+            background: #111;
 
             border: 1px solid #202020;
 
             border-radius: 16px;
 
-            padding: 22px 18px 18px;
+            padding: 28px 18px 20px;
 
             min-height: 295px;
 
-            cursor: pointer;
-
-            transition:
-                transform 0.2s ease,
-                border-color 0.2s ease,
-                background 0.2s ease;
-
             display: flex;
+
             flex-direction: column;
+
             align-items: center;
 
             text-align: center;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
         }
 
-        .stream-card:hover {
+        .match-card:hover {
             transform: translateY(-3px);
+
             border-color: #333;
+
             background: #141414;
         }
 
-        /* THUMBNAIL */
+        /* IMAGE */
 
-        .thumbnail {
+        .match-image {
             width: 160px;
             height: 92px;
-
-            border-radius: 7px;
 
             object-fit: cover;
 
-            background: #191919;
-
-            margin-bottom: 15px;
-
-            border: 1px solid #252525;
-        }
-
-        .default-thumbnail {
-            width: 160px;
-            height: 92px;
-
             border-radius: 7px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #171717,
-                    #292929
-                );
+            margin-bottom: 16px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 35px;
-
-            margin-bottom: 15px;
+            background: #1a1a1a;
         }
 
         /* TITLE */
 
-        .stream-title {
+        .match-title {
             font-size: 18px;
 
             line-height: 1.35;
 
             font-weight: 600;
 
-            color: #eeeeee;
+            margin-bottom: 15px;
 
-            margin-bottom: 14px;
+            color: #eee;
         }
 
-        /* BADGE */
+        /* TIME */
 
-        .stream-badge {
-            background: #202020;
-
-            color: #777;
-
-            border-radius: 20px;
+        .match-time {
+            margin-top: auto;
 
             padding: 6px 13px;
 
+            background: #202020;
+
+            border-radius: 20px;
+
             font-size: 12px;
 
-            margin-top: auto;
+            color: #777;
+
+            text-transform: uppercase;
         }
+
+        /* LIVE */
 
         .live {
             color: #777;
@@ -168,21 +150,22 @@
 
         /* PLAYER */
 
-        #playerContainer {
+        #player {
             display: none;
 
             position: fixed;
 
             inset: 0;
 
-            background: rgba(0, 0, 0, 0.94);
-
             z-index: 9999;
 
+            background: rgba(0, 0, 0, 0.95);
+
             align-items: center;
+
             justify-content: center;
 
-            padding: 25px;
+            padding: 20px;
         }
 
         .player-box {
@@ -197,7 +180,7 @@
             position: relative;
         }
 
-        #videoPlayer {
+        video {
             width: 100%;
 
             max-height: 75vh;
@@ -208,23 +191,23 @@
         }
 
         .player-title {
-            padding: 10px 5px 5px;
-
             font-size: 18px;
 
             font-weight: 600;
+
+            margin-top: 10px;
         }
 
-        #closePlayer {
+        #close {
             position: absolute;
 
-            right: 12px;
+            right: 10px;
             top: 10px;
 
-            width: 35px;
-            height: 35px;
+            width: 36px;
+            height: 36px;
 
-            border: none;
+            border: 0;
 
             border-radius: 50%;
 
@@ -232,11 +215,11 @@
 
             color: white;
 
-            font-size: 20px;
+            font-size: 22px;
 
             cursor: pointer;
 
-            z-index: 5;
+            z-index: 2;
         }
 
         /* EMPTY */
@@ -246,7 +229,7 @@
 
             text-align: center;
 
-            padding: 70px 20px;
+            padding: 70px;
 
             color: #666;
         }
@@ -254,47 +237,30 @@
         /* RESPONSIVE */
 
         @media (max-width: 1400px) {
-
-            #streamGrid {
+            #matches {
                 grid-template-columns:
                     repeat(4, minmax(0, 1fr));
             }
-
         }
 
         @media (max-width: 1050px) {
-
-            #streamGrid {
+            #matches {
                 grid-template-columns:
                     repeat(3, minmax(0, 1fr));
             }
-
         }
 
         @media (max-width: 750px) {
-
-            #streamGrid {
+            #matches {
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
             }
-
-            main {
-                padding: 20px 12px;
-            }
-
         }
 
         @media (max-width: 500px) {
-
-            #streamGrid {
-                grid-template-columns:
-                    1fr;
+            #matches {
+                grid-template-columns: 1fr;
             }
-
-            .stream-card {
-                min-height: 280px;
-            }
-
         }
     </style>
 </head>
@@ -305,31 +271,31 @@
     CRICKCAST · Live
 </header>
 
+
 <main>
 
     <div id="status">
-        Loading live streams...
+        Loading matches...
     </div>
 
-    <div id="streamGrid"></div>
+    <div id="matches"></div>
 
 </main>
 
 
 <!-- VIDEO PLAYER -->
 
-<div id="playerContainer">
+<div id="player">
 
     <div class="player-box">
 
-        <button id="closePlayer">
+        <button id="close">
             ×
         </button>
 
         <video
-            id="videoPlayer"
+            id="video"
             controls
-            autoplay
             playsinline>
         </video>
 
@@ -347,67 +313,15 @@
 
 /*
 ====================================================
-GITHUB CONFIGURATION
+GITHUB DATABASE
 ====================================================
 */
 
-const GITHUB_OWNER = "Vk1817";
-const GITHUB_REPO = "cricbuzz";
-const GITHUB_BRANCH = "main";
+const WILLOW_JSON =
+    "https://raw.githubusercontent.com/Vk1817/cricbuzz/main/willow.json";
 
-/*
-    Leave this empty to search the ENTIRE repository.
-
-    If later your streams are inside:
-
-        streams/
-
-    change it to:
-
-        const STREAM_FOLDER = "streams";
-
-    Example:
-
-        const STREAM_FOLDER = "live";
-*/
-
-const STREAM_FOLDER = "";
-
-
-/*
-====================================================
-GITHUB API
-====================================================
-*/
-
-const TREE_API =
-    `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
-
-const RAW_BASE =
-    `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/`;
-
-
-/*
-====================================================
-SUPPORTED STREAM TYPES
-====================================================
-*/
-
-const STREAM_EXTENSIONS = [
-
-    ".m3u8",
-
-    ".m3u",
-
-    ".mp4",
-
-    ".webm",
-
-    ".ogg",
-
-    ".mov"
-
-];
+const PRIME_JSON =
+    "https://raw.githubusercontent.com/Vk1817/cricbuzz/main/primesport.json";
 
 
 /*
@@ -416,340 +330,185 @@ ELEMENTS
 ====================================================
 */
 
-const grid =
-    document.getElementById("streamGrid");
+const matchesContainer =
+    document.getElementById("matches");
 
-const status =
+const statusElement =
     document.getElementById("status");
 
-const playerContainer =
-    document.getElementById("playerContainer");
+const player =
+    document.getElementById("player");
 
-const videoPlayer =
-    document.getElementById("videoPlayer");
+const video =
+    document.getElementById("video");
 
 const playerTitle =
     document.getElementById("playerTitle");
 
-const closePlayer =
-    document.getElementById("closePlayer");
+const closeButton =
+    document.getElementById("close");
 
 
 /*
 ====================================================
-CHECK STREAM FILE
+FETCH JSON
 ====================================================
 */
 
-function isStreamFile(path) {
+async function getJSON(url) {
 
-    const lower =
-        path.toLowerCase();
-
-    return STREAM_EXTENSIONS.some(
-        extension =>
-            lower.endsWith(extension)
-    );
-
-}
-
-
-/*
-====================================================
-GET FILE NAME
-====================================================
-*/
-
-function getFileName(path) {
-
-    const name =
-        path.split("/").pop();
-
-    return name
-        .replace(/\.[^/.]+$/, "")
-        .replace(/[-_]+/g, " ")
-        .replace(/\b\w/g, char =>
-            char.toUpperCase()
+    const response =
+        await fetch(
+            url + "?t=" + Date.now()
         );
 
-}
-
-
-/*
-====================================================
-GET RAW URL
-====================================================
-*/
-
-function getRawUrl(path) {
-
-    return RAW_BASE +
-        path
-            .split("/")
-            .map(encodeURIComponent)
-            .join("/");
-
-}
-
-
-/*
-====================================================
-GET THUMBNAIL
-====================================================
-
-If your repository contains an image with the
-same filename, it will automatically be used.
-
-Example:
-
-match.m3u8
-match.jpg
-
-Then match.jpg becomes thumbnail.
-
-*/
-
-async function findThumbnail(path, allFiles) {
-
-    const base =
-        path
-            .replace(/\.[^/.]+$/, "");
-
-    const possibleExtensions = [
-
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".webp"
-
-    ];
-
-    for (
-        const extension
-        of possibleExtensions
-    ) {
-
-        const imagePath =
-            base + extension;
-
-        if (
-            allFiles.includes(imagePath)
-        ) {
-
-            return getRawUrl(
-                imagePath
-            );
-
-        }
-
+    if (!response.ok) {
+        throw new Error(
+            "Unable to load database"
+        );
     }
 
-    return null;
-
+    return await response.json();
 }
 
 
 /*
 ====================================================
-CREATE CARD
+CREATE MATCH CARD
 ====================================================
 */
 
-function createCard(stream, thumbnail) {
+function createMatchCard(match) {
 
     const card =
         document.createElement("div");
 
     card.className =
-        "stream-card";
+        "match-card";
 
 
     /*
-        Thumbnail
+        IMAGE
     */
 
-    if (thumbnail) {
+    const image =
+        document.createElement("img");
 
-        const image =
-            document.createElement("img");
+    image.className =
+        "match-image";
 
-        image.className =
-            "thumbnail";
+    image.src =
+        match.cover_image;
 
-        image.src =
-            thumbnail;
+    image.alt =
+        match.title;
 
-        image.alt =
-            stream.title;
+    image.loading =
+        "lazy";
 
-        card.appendChild(image);
-
-    } else {
-
-        const defaultImage =
-            document.createElement("div");
-
-        defaultImage.className =
-            "default-thumbnail";
-
-        defaultImage.textContent =
-            "🏏";
-
-        card.appendChild(
-            defaultImage
-        );
-
-    }
+    card.appendChild(image);
 
 
     /*
-        Title
+        TITLE
     */
 
     const title =
         document.createElement("div");
 
     title.className =
-        "stream-title";
+        "match-title";
 
     title.textContent =
-        stream.title;
+        match.title;
 
     card.appendChild(title);
 
 
     /*
-        Badge
+        TIME
     */
 
-    const badge =
+    const time =
         document.createElement("div");
 
-    badge.className =
-        "stream-badge";
+    time.className =
+        "match-time";
 
-    badge.textContent =
-        "LIVE";
+    time.textContent =
+        match.time || "LIVE";
 
-    card.appendChild(badge);
+    card.appendChild(time);
 
 
     /*
-        Click
+        CLICK
     */
 
     card.addEventListener(
         "click",
         () => {
 
-            openPlayer(
-                stream.url,
-                stream.title
-            );
+            openMatch(match);
 
         }
     );
 
 
     return card;
-
 }
 
 
 /*
 ====================================================
-OPEN PLAYER
+OPEN MATCH
 ====================================================
 */
 
-function openPlayer(url, title) {
-
-    playerContainer.style.display =
-        "flex";
-
-    playerTitle.textContent =
-        title;
+function openMatch(match) {
 
     /*
-        HLS STREAM
+        For now display the event information.
+
+        Actual stream playback will be connected
+        after we map the Willow event to the
+        corresponding PrimeSport stream.
+    */
+
+    playerTitle.textContent =
+        match.title;
+
+
+    /*
+        If a direct stream exists in this
+        match object, play it.
     */
 
     if (
-        url
-            .toLowerCase()
-            .includes(".m3u8")
+        match.stream_url_alpha
     ) {
 
-        if (
-            window.Hls &&
-            Hls.isSupported()
-        ) {
+        video.src =
+            match.stream_url_alpha;
 
-            if (
-                window.currentHls
-            ) {
+        player.style.display =
+            "flex";
 
-                window.currentHls.destroy();
-
-            }
-
-            const hls =
-                new Hls();
-
-            window.currentHls =
-                hls;
-
-            hls.loadSource(url);
-
-            hls.attachMedia(
-                videoPlayer
-            );
-
-            hls.on(
-                Hls.Events.MANIFEST_PARSED,
-                () => {
-
-                    videoPlayer.play()
-                        .catch(() => {});
-
-                }
-            );
-
-        }
-
-        /*
-            Safari supports HLS natively.
-        */
-
-        else if (
-            videoPlayer.canPlayType(
-                "application/vnd.apple.mpegurl"
-            )
-        ) {
-
-            videoPlayer.src =
-                url;
-
-            videoPlayer.play()
-                .catch(() => {});
-
-        }
-
-    }
-
-    /*
-        MP4 / WEBM / OTHER
-    */
-
-    else {
-
-        videoPlayer.src =
-            url;
-
-        videoPlayer.play()
+        video.play()
             .catch(() => {});
 
+        return;
+
     }
+
+
+    /*
+        No stream currently available.
+    */
+
+    alert(
+        "This match does not have a live stream yet."
+    );
 
 }
 
@@ -760,49 +519,37 @@ CLOSE PLAYER
 ====================================================
 */
 
-function closeVideo() {
+function closePlayer() {
 
-    videoPlayer.pause();
+    video.pause();
 
-    videoPlayer.removeAttribute(
+    video.removeAttribute(
         "src"
     );
 
-    videoPlayer.load();
+    video.load();
 
-    if (
-        window.currentHls
-    ) {
-
-        window.currentHls.destroy();
-
-        window.currentHls =
-            null;
-
-    }
-
-    playerContainer.style.display =
+    player.style.display =
         "none";
 
 }
 
 
-closePlayer.addEventListener(
+closeButton.addEventListener(
     "click",
-    closeVideo
+    closePlayer
 );
 
 
-playerContainer.addEventListener(
+player.addEventListener(
     "click",
     event => {
 
         if (
-            event.target ===
-            playerContainer
+            event.target === player
         ) {
 
-            closeVideo();
+            closePlayer();
 
         }
 
@@ -812,104 +559,60 @@ playerContainer.addEventListener(
 
 /*
 ====================================================
-LOAD REPOSITORY
+LOAD WILLOW DATABASE
 ====================================================
 */
 
-async function loadStreams() {
+async function loadMatches() {
 
     try {
 
-        status.textContent =
-            "Fetching streams from GitHub...";
-
-
-        const response =
-            await fetch(TREE_API);
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Unable to access GitHub repository."
-            );
-
-        }
-
-
-        const data =
-            await response.json();
+        statusElement.textContent =
+            "Fetching latest cricket events...";
 
 
         /*
-            GitHub tree
+            Fetch Willow JSON
         */
 
-        const files =
-            data.tree || [];
-
-
-        /*
-            Get all file paths
-        */
-
-        const allFiles =
-            files
-                .filter(
-                    file =>
-                        file.type === "blob"
-                )
-                .map(
-                    file =>
-                        file.path
-                );
-
-
-        /*
-            Find stream files
-        */
-
-        let streamFiles =
-            allFiles.filter(
-                isStreamFile
+        const willow =
+            await getJSON(
+                WILLOW_JSON
             );
 
 
         /*
-            Optional folder filter
+            Get matches
         */
 
-        if (
-            STREAM_FOLDER.trim() !== ""
-        ) {
-
-            streamFiles =
-                streamFiles.filter(
-                    path =>
-                        path.startsWith(
-                            STREAM_FOLDER + "/"
-                        )
-                );
-
-        }
+        const matches =
+            willow.Matches || [];
 
 
         /*
-            No streams
+            Clear old data
+        */
+
+        matchesContainer.innerHTML =
+            "";
+
+
+        /*
+            No matches
         */
 
         if (
-            streamFiles.length === 0
+            matches.length === 0
         ) {
 
-            status.textContent =
-                "No stream files found.";
-
-            grid.innerHTML = `
+            matchesContainer.innerHTML = `
                 <div class="empty">
-                    No live streams are currently available.
+                    No cricket events available.
                 </div>
             `;
+
+            statusElement.textContent =
+                "No events found.";
 
             return;
 
@@ -917,81 +620,45 @@ async function loadStreams() {
 
 
         /*
-            Create stream objects
+            Render cards
         */
 
-        const streams = [];
+        matches.forEach(
+            match => {
 
+                const card =
+                    createMatchCard(
+                        match
+                    );
 
-        for (
-            const path
-            of streamFiles
-        ) {
+                matchesContainer.appendChild(
+                    card
+                );
 
-            streams.push({
-
-                path: path,
-
-                title:
-                    getFileName(path),
-
-                url:
-                    getRawUrl(path)
-
-            });
-
-        }
+            }
+        );
 
 
         /*
-            Create cards
+            Status
         */
 
-        for (
-            const stream
-            of streams
-        ) {
-
-            const thumbnail =
-                await findThumbnail(
-                    stream.path,
-                    allFiles
-                );
+        statusElement.textContent =
+            `${matches.length} cricket events available`;
 
 
-            const card =
-                createCard(
-                    stream,
-                    thumbnail
-                );
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-
-
-        status.textContent =
-            `${streams.length} live stream${streams.length === 1 ? "" : "s"} available`;
-
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
             error
         );
 
-        status.textContent =
-            "Unable to load streams.";
+        statusElement.textContent =
+            "Failed to load cricket events.";
 
-        grid.innerHTML = `
+        matchesContainer.innerHTML = `
             <div class="empty">
-                Failed to load streams from GitHub.
-                <br><br>
-                ${error.message}
+                Unable to load cricket data.
             </div>
         `;
 
@@ -1006,9 +673,27 @@ START
 ====================================================
 */
 
-loadStreams();
+loadMatches();
+
+
+/*
+====================================================
+AUTO REFRESH
+====================================================
+
+Your GitHub Actions updates the JSON files.
+
+Refresh the webpage data every 5 minutes.
+====================================================
+*/
+
+setInterval(
+    loadMatches,
+    5 * 60 * 1000
+);
 
 </script>
 
 </body>
 </html>
+```
