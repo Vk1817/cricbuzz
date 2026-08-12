@@ -1,7 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport"
       content="width=device-width,initial-scale=1">
 
@@ -33,55 +36,42 @@ body {
 }
 
 
-/* =========================
+/* ================================
    HEADER
-========================= */
+================================ */
 
 #header {
-
     width: 100%;
-
     padding: 26px 20px 18px;
-
     border-bottom: 1px solid #171717;
-
     text-align: center;
 }
 
 #header h1 {
-
     font-size: 22px;
-
     font-weight: 700;
-
     letter-spacing: .3px;
 }
 
 
-/* =========================
+/* ================================
    STATUS
-========================= */
+================================ */
 
 #status {
-
     text-align: center;
-
     color: #666;
-
     font-size: 13px;
-
     padding: 22px 10px;
 }
 
 
-/* =========================
-   MATCH GRID
-========================= */
+/* ================================
+   GRID
+================================ */
 
 #ch-grid {
-
     width: 100%;
-
     padding: 0 22px 40px;
 
     display: grid;
@@ -93,12 +83,11 @@ body {
 }
 
 
-/* =========================
-   MATCH CARD
-========================= */
+/* ================================
+   CARD
+================================ */
 
 .ch-card {
-
     background: #111;
 
     border: 1px solid #202020;
@@ -128,23 +117,18 @@ body {
 }
 
 .ch-card:hover {
-
     transform: translateY(-3px);
-
     background: #141414;
-
     border-color: #303030;
 }
 
 
-/* =========================
+/* ================================
    IMAGE
-========================= */
+================================ */
 
 .ch-logo {
-
     width: 160px;
-
     height: 92px;
 
     object-fit: cover;
@@ -157,12 +141,11 @@ body {
 }
 
 
-/* =========================
+/* ================================
    TITLE
-========================= */
+================================ */
 
 .ch-name {
-
     color: #eeeeee;
 
     font-size: 18px;
@@ -175,12 +158,11 @@ body {
 }
 
 
-/* =========================
-   TIME
-========================= */
+/* ================================
+   BADGE
+================================ */
 
 .ch-badge {
-
     margin-top: auto;
 
     padding: 6px 13px;
@@ -194,17 +176,14 @@ body {
     font-size: 12px;
 
     text-transform: uppercase;
-
-    letter-spacing: .2px;
 }
 
 
-/* =========================
+/* ================================
    PLAYER
-========================= */
+================================ */
 
 #player-page {
-
     position: fixed;
 
     inset: 0;
@@ -221,18 +200,14 @@ body {
 }
 
 #video-container {
-
     position: relative;
 
     width: 100%;
-
     height: 100%;
 }
 
 #video {
-
     width: 100%;
-
     height: 100%;
 
     object-fit: contain;
@@ -241,18 +216,15 @@ body {
 }
 
 
-/* =========================
+/* ================================
    PLAYER TITLE
-========================= */
+================================ */
 
 #player-title {
-
     position: absolute;
 
     top: 15px;
-
-    left: 15px;
-
+    left: 65px;
     right: 15px;
 
     z-index: 10;
@@ -272,16 +244,14 @@ body {
 }
 
 
-/* =========================
-   BACK BUTTON
-========================= */
+/* ================================
+   BACK
+================================ */
 
 #back {
-
     position: absolute;
 
     top: 15px;
-
     left: 15px;
 
     z-index: 20;
@@ -294,7 +264,6 @@ body {
     color: white;
 
     width: 40px;
-
     height: 40px;
 
     border-radius: 50%;
@@ -305,12 +274,11 @@ body {
 }
 
 
-/* =========================
+/* ================================
    LOADING
-========================= */
+================================ */
 
 #loading {
-
     position: fixed;
 
     inset: 0;
@@ -331,9 +299,7 @@ body {
 }
 
 .spinner {
-
     width: 35px;
-
     height: 35px;
 
     border-radius: 50%;
@@ -347,113 +313,26 @@ body {
 }
 
 @keyframes spin {
-
     to {
         transform: rotate(360deg);
     }
-
 }
 
 
-/* =========================
-   EMPTY
-========================= */
-
-.empty {
-
-    grid-column: 1 / -1;
-
-    text-align: center;
-
-    color: #666;
-
-    padding: 70px 20px;
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1400px) {
-
-    #ch-grid {
-
-        grid-template-columns:
-            repeat(4, minmax(0,1fr));
-    }
-
-}
-
-@media(max-width:1050px) {
-
-    #ch-grid {
-
-        grid-template-columns:
-            repeat(3, minmax(0,1fr));
-    }
-
-}
-
-@media(max-width:750px) {
-
-    #ch-grid {
-
-        grid-template-columns:
-            repeat(2, minmax(0,1fr));
-
-        gap: 15px;
-
-        padding: 0 12px 30px;
-    }
-
-    .ch-card {
-
-        min-height: 250px;
-
-        padding: 20px 12px;
-    }
-
-    .ch-logo {
-
-        width: 140px;
-
-        height: 80px;
-    }
-
-    .ch-name {
-
-        font-size: 15px;
-    }
-
-}
-
-@media(max-width:480px) {
-
-    #ch-grid {
-
-        grid-template-columns: 1fr;
-    }
-
-}
-
-
-/* =========================
-   PLAYER MESSAGE
-========================= */
+/* ================================
+   MESSAGE
+================================ */
 
 #player-message {
-
     position: absolute;
 
     left: 50%;
-
     top: 50%;
 
     transform:
-        translate(-50%,-50%);
+        translate(-50%, -50%);
 
-    width: min(450px,90%);
+    width: min(450px, 90%);
 
     text-align: center;
 
@@ -473,14 +352,11 @@ body {
 }
 
 #player-message h2 {
-
     font-size: 18px;
-
     margin-bottom: 10px;
 }
 
 #player-message p {
-
     color: #888;
 
     font-size: 13px;
@@ -488,16 +364,88 @@ body {
     line-height: 1.5;
 }
 
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    color: #666;
+
+    padding: 70px 20px;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media(max-width:1400px) {
+
+    #ch-grid {
+        grid-template-columns:
+            repeat(4, minmax(0,1fr));
+    }
+
+}
+
+@media(max-width:1050px) {
+
+    #ch-grid {
+        grid-template-columns:
+            repeat(3, minmax(0,1fr));
+    }
+
+}
+
+@media(max-width:750px) {
+
+    #ch-grid {
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+
+        gap: 15px;
+
+        padding: 0 12px 30px;
+    }
+
+    .ch-card {
+        min-height: 250px;
+        padding: 20px 12px;
+    }
+
+    .ch-logo {
+        width: 140px;
+        height: 80px;
+    }
+
+    .ch-name {
+        font-size: 15px;
+    }
+
+}
+
+@media(max-width:480px) {
+
+    #ch-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================
-     LOADING
-========================= -->
+<!-- LOADING -->
 
 <div id="loading">
 
@@ -510,9 +458,7 @@ body {
 </div>
 
 
-<!-- =========================
-     HOME
-========================= -->
+<!-- HOME -->
 
 <div id="home">
 
@@ -535,9 +481,7 @@ body {
 </div>
 
 
-<!-- =========================
-     PLAYER
-========================= -->
+<!-- PLAYER -->
 
 <div id="player-page">
 
@@ -559,12 +503,11 @@ body {
         <div id="player-message">
 
             <h2>
-                Stream not available
+                Playback unavailable
             </h2>
 
             <p id="player-message-text">
-                This match does not currently
-                have a playable stream URL.
+                Unable to play this stream.
             </p>
 
         </div>
@@ -573,6 +516,8 @@ body {
 
 </div>
 
+
+<!-- SHAKA -->
 
 <script src="https://cdn.jsdelivr.net/npm/shaka-player@4.16.2/dist/shaka-player.ui.min.js"></script>
 
@@ -583,7 +528,7 @@ body {
 
 
 /* ==================================================
-   CONFIGURATION
+   CONFIG
 ================================================== */
 
 const API =
@@ -631,7 +576,7 @@ let currentPlayer = null;
 
 
 /* ==================================================
-   FETCH DATABASE
+   FETCH JSON
 ================================================== */
 
 async function loadData() {
@@ -640,24 +585,196 @@ async function loadData() {
         await fetch(
             API + "?t=" + Date.now(),
             {
-                cache: "no-store"
+                cache: "no-store",
+                headers: {
+                    "Accept":
+                        "application/json"
+                }
             }
         );
+
 
     if (!response.ok) {
 
         throw new Error(
-            "HTTP " + response.status
+            "HTTP " +
+            response.status
         );
 
     }
 
+
     return await response.json();
+
 }
 
 
 /* ==================================================
-   CREATE MATCH CARD
+   STREAM URL EXTRACTION
+==================================================
+
+   IMPORTANT:
+
+   stream_url_alpha and stream_url_bravo
+   in your JSON are OBJECTS.
+
+   Example:
+
+   stream_url_alpha: {
+       "Fistly Server": "...",
+       "Amazon Server": "...",
+       "Akamai Server": "...",
+       ...
+   }
+
+================================================== */
+
+function getStreamUrl(match) {
+
+    const groups = [
+
+        /*
+            Bravo first
+        */
+
+        match.stream_url_bravo,
+
+        /*
+            Alpha fallback
+        */
+
+        match.stream_url_alpha
+
+    ];
+
+
+    /*
+        Preferred server order
+    */
+
+    const preferredServers = [
+
+        "Akamai Server",
+
+        "Amazon Server",
+
+        "Cloudfront Server 1",
+
+        "Cloudfront Server 2",
+
+        "Amazon Server",
+
+        "Fistly Server"
+
+    ];
+
+
+    /*
+        Search groups
+    */
+
+    for (
+        const group
+        of groups
+    ) {
+
+        if (!group) {
+            continue;
+        }
+
+
+        /*
+            If group is already
+            a string
+        */
+
+        if (
+            typeof group ===
+            "string"
+        ) {
+
+            const url =
+                group.trim();
+
+
+            if (url) {
+
+                return url;
+
+            }
+
+        }
+
+
+        /*
+            If group is an object
+        */
+
+        if (
+            typeof group ===
+            "object"
+        ) {
+
+
+            /*
+                Preferred servers
+            */
+
+            for (
+                const server
+                of preferredServers
+            ) {
+
+                const url =
+                    group[server];
+
+
+                if (
+                    typeof url ===
+                    "string" &&
+                    url.trim()
+                ) {
+
+                    return url.trim();
+
+                }
+
+            }
+
+
+            /*
+                Generic fallback
+            */
+
+            for (
+                const url
+                of Object.values(group)
+            ) {
+
+                if (
+                    typeof url ===
+                    "string" &&
+                    url.trim()
+                ) {
+
+                    return url.trim();
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* ==================================================
+   CREATE CARD
 ================================================== */
 
 function createCard(match) {
@@ -670,17 +787,6 @@ function createCard(match) {
         "ch-card";
 
 
-    /*
-        IMPORTANT:
-
-        Same architecture as the
-        working website.
-
-        Every match gets:
-
-        ?id=MATCH_ID
-    */
-
     card.href =
         "?id=" +
         encodeURIComponent(
@@ -688,19 +794,27 @@ function createCard(match) {
         );
 
 
-    /* IMAGE */
+    /*
+        IMAGE
+    */
 
     const image =
         document.createElement("img");
 
+
     image.className =
         "ch-logo";
 
+
     image.src =
-        match.cover_image || "";
+        match.cover_image ||
+        "";
+
 
     image.alt =
-        match.title || "Cricket";
+        match.title ||
+        "Cricket";
+
 
     image.loading =
         "lazy";
@@ -715,29 +829,40 @@ function createCard(match) {
         };
 
 
-    card.appendChild(image);
+    card.appendChild(
+        image
+    );
 
 
-    /* TITLE */
+    /*
+        TITLE
+    */
 
     const title =
         document.createElement("span");
 
+
     title.className =
         "ch-name";
+
 
     title.textContent =
         match.title ||
         "Live Cricket Match";
 
 
-    card.appendChild(title);
+    card.appendChild(
+        title
+    );
 
 
-    /* STATUS / TIME */
+    /*
+        BADGE
+    */
 
     const badge =
         document.createElement("span");
+
 
     badge.className =
         "ch-badge";
@@ -752,8 +877,10 @@ function createCard(match) {
         badge.textContent =
             "● LIVE";
 
+
         badge.style.color =
             "#ef4444";
+
 
         badge.style.border =
             "1px solid #ef4444";
@@ -769,15 +896,18 @@ function createCard(match) {
     }
 
 
-    card.appendChild(badge);
+    card.appendChild(
+        badge
+    );
 
 
     return card;
+
 }
 
 
 /* ==================================================
-   RENDER MATCHES
+   RENDER
 ================================================== */
 
 function renderMatches(data) {
@@ -800,11 +930,38 @@ function renderMatches(data) {
             </div>
         `;
 
+
         status.textContent =
             "No matches available.";
 
+
         return;
+
     }
+
+
+    /*
+        LIVE FIRST
+    */
+
+    matches.sort(
+        function(a, b) {
+
+            const aLive =
+                String(a.status)
+                    .toUpperCase() ===
+                "LIVE";
+
+            const bLive =
+                String(b.status)
+                    .toUpperCase() ===
+                "LIVE";
+
+
+            return bLive - aLive;
+
+        }
+    );
 
 
     matches.forEach(
@@ -818,13 +975,25 @@ function renderMatches(data) {
     );
 
 
+    const liveCount =
+        matches.filter(
+            m =>
+                String(m.status)
+                    .toUpperCase() ===
+                "LIVE"
+        ).length;
+
+
     status.textContent =
+        liveCount +
+        " live · " +
         matches.length +
-        " cricket events available";
+        " total";
 
 
     loading.style.display =
         "none";
+
 }
 
 
@@ -851,6 +1020,21 @@ function findMatch(
 
 
 /* ==================================================
+   SHOW PLAYER ERROR
+================================================== */
+
+function showPlayerMessage(message) {
+
+    playerMessageText.textContent =
+        message;
+
+    playerMessage.style.display =
+        "block";
+
+}
+
+
+/* ==================================================
    OPEN PLAYER
 ================================================== */
 
@@ -859,12 +1043,14 @@ async function openPlayer(match) {
     home.style.display =
         "none";
 
+
     playerPage.style.display =
         "flex";
 
 
     playerTitle.textContent =
-        match.title || "CRICKAST";
+        match.title ||
+        "CRICKCAST";
 
 
     playerMessage.style.display =
@@ -872,48 +1058,45 @@ async function openPlayer(match) {
 
 
     /*
-        At the moment your willow.json
-        contains empty stream_url_alpha
-        values.
+        IMPORTANT:
 
-        Therefore we do NOT pretend
-        there is a playable stream.
+        Extract URL from the
+        object-based stream fields.
     */
 
-    let streamUrl = "";
+    const streamUrl =
+        getStreamUrl(match);
 
 
-    if (
-        typeof match.stream_url_alpha ===
-        "string"
-    ) {
+    console.log(
+        "Match:",
+        match.match_id
+    );
 
-        streamUrl =
-            match.stream_url_alpha.trim();
 
-    }
+    console.log(
+        "Stream URL:",
+        streamUrl
+    );
 
+
+    /*
+        No URL
+    */
 
     if (!streamUrl) {
 
-        playerMessageText.textContent =
-            "This match is listed in willow.json, " +
-            "but no playable stream URL is currently " +
-            "provided for it.";
-
-        playerMessage.style.display =
-            "block";
+        showPlayerMessage(
+            "No playable stream URL is currently available for this match."
+        );
 
         return;
+
     }
 
 
     /*
-        Only normal authorized stream URLs
-        are handled here.
-
-        HLS / DASH playback can be loaded
-        through Shaka when the source permits it.
+        Initialize Shaka
     */
 
     try {
@@ -922,15 +1105,34 @@ async function openPlayer(match) {
 
 
         if (
-            !shaka.Player.isBrowserSupported()
+            !shaka.Player
+                .isBrowserSupported()
         ) {
 
             throw new Error(
-                "Browser not supported."
+                "Browser not supported by Shaka Player."
             );
 
         }
 
+
+        /*
+            Destroy previous player
+        */
+
+        if (currentPlayer) {
+
+            await currentPlayer.destroy();
+
+            currentPlayer =
+                null;
+
+        }
+
+
+        /*
+            Create player
+        */
 
         currentPlayer =
             new shaka.Player();
@@ -941,10 +1143,78 @@ async function openPlayer(match) {
         );
 
 
+        /*
+            Basic playback configuration
+
+            No DRM credentials are
+            inserted here.
+        */
+
+        currentPlayer.configure({
+
+            manifest: {
+
+                retryParameters: {
+
+                    maxAttempts: 5,
+
+                    baseDelay: 500,
+
+                    backoffFactor: 2,
+
+                    fuzzFactor: .5,
+
+                    timeout: 30000
+
+                }
+
+            },
+
+            streaming: {
+
+                lowLatencyMode:
+                    false,
+
+                bufferingGoal:
+                    10,
+
+                rebufferingGoal:
+                    1.5,
+
+                bufferBehind:
+                    30,
+
+                retryParameters: {
+
+                    maxAttempts: 5,
+
+                    baseDelay: 500,
+
+                    backoffFactor: 2,
+
+                    fuzzFactor: .5,
+
+                    timeout: 30000
+
+                }
+
+            }
+
+        });
+
+
+        /*
+            Load stream
+        */
+
         await currentPlayer.load(
             streamUrl
         );
 
+
+        /*
+            Start playback
+        */
 
         await video.play();
 
@@ -954,17 +1224,26 @@ async function openPlayer(match) {
     catch(error) {
 
         console.error(
-            "Player error:",
+            "Shaka playback error:",
             error
         );
 
 
-        playerMessageText.textContent =
-            "The available stream could not " +
-            "be played in this browser.";
+        /*
+            Show useful error
+        */
 
-        playerMessage.style.display =
-            "block";
+        const message =
+            error &&
+            error.code
+                ? "Shaka playback error: " +
+                  error.code
+                : "The stream could not be played.";
+
+
+        showPlayerMessage(
+            message
+        );
 
     }
 
@@ -975,13 +1254,13 @@ async function openPlayer(match) {
    CLOSE PLAYER
 ================================================== */
 
-function closePlayer() {
+async function closePlayer() {
 
     if (currentPlayer) {
 
         try {
 
-            currentPlayer.destroy();
+            await currentPlayer.destroy();
 
         }
 
@@ -989,6 +1268,7 @@ function closePlayer() {
 
         currentPlayer =
             null;
+
     }
 
 
@@ -1004,13 +1284,10 @@ function closePlayer() {
     playerPage.style.display =
         "none";
 
+
     home.style.display =
         "block";
 
-
-    /*
-        Remove ?id= from URL
-    */
 
     history.pushState(
         {},
@@ -1022,7 +1299,7 @@ function closePlayer() {
 
 
 /* ==================================================
-   URL ROUTING
+   ROUTING
 ================================================== */
 
 async function handleRoute() {
@@ -1065,7 +1342,7 @@ async function handleRoute() {
 
 
         /*
-            MATCH PAGE
+            MATCH
         */
 
         const match =
@@ -1080,10 +1357,13 @@ async function handleRoute() {
             loading.style.display =
                 "none";
 
+
             status.textContent =
                 "Match not found.";
 
+
             return;
+
         }
 
 
@@ -1099,7 +1379,9 @@ async function handleRoute() {
 
     catch(error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
         loading.style.display =
@@ -1112,7 +1394,7 @@ async function handleRoute() {
 
         grid.innerHTML = `
             <div class="empty">
-                Failed to load willow.json
+                Failed to load willow.json.
                 <br><br>
                 ${error.message}
             </div>
@@ -1133,17 +1415,13 @@ back.addEventListener(
 );
 
 
-/* Browser back button */
+/* ==================================================
+   BROWSER BACK
+================================================== */
 
 window.addEventListener(
     "popstate",
-    function() {
-
-        closePlayer();
-
-        handleRoute();
-
-    }
+    handleRoute
 );
 
 
@@ -1164,19 +1442,13 @@ document.addEventListener(
 setInterval(
     async function() {
 
-        /*
-            Only refresh the match list
-            while on the homepage.
-        */
-
-        if (
-            !location.search
-        ) {
+        if (!location.search) {
 
             try {
 
                 const data =
                     await loadData();
+
 
                 renderMatches(
                     data
@@ -1196,3 +1468,4 @@ setInterval(
 
 </body>
 </html>
+```
