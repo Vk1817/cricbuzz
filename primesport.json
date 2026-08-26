@@ -1,7 +1,7 @@
 {
   "HeaderInfo": {
     "PlaylistName": "Prime Video Free Sports",
-    "LastUpdate": "02:02 AM 27-08-2026",
+    "LastUpdate": "05:32 AM 27-08-2026",
     "Telegram": "https://t.me/livesportsplay",
     "Owner": "Md Sohanur Rahman Hady"
   },
@@ -11,21 +11,32 @@
   },
   "Matches": [
     {
-      "match_id": "B0HGBTWCXM",
-      "title": "Newcastle vs. West Brom",
-      "synopsis": "Newcastle vs. West Brom",
+      "match_id": "B0HFDQGYWQ",
+      "title": "Leagues Cup La Previa",
+      "synopsis": "Leagues Cup La Previa",
       "status": "LIVE",
       "time": "LIVE NOW",
-      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.a16cf088-c610-4fb3-b954-fa10f6a08f69/2/BOXART-16X9/en-US/1920x1080._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/a-f/freewithads/logos/channels-logo-white.png%7C0,0,1920,1080+0,0,1920,1080+1578,847,263,156_kv053498f62d21803ffcbf28da234cfe9f_SX624_FMpng_.png",
-      "match_url": "https://www.amazon.com/gp/video/detail/B0HGBTWCXM",
+      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.f232ce28-d912-487b-b0f7-09632494fa25/4/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/a-f/appletvus/logos/channels-logo-white-stacked.png%7C0,0,1920,1080+0,0,1920,1080+1607,885,234,117_kv6e4ed7a60d36179896a92487d4bec652_SX624_FMjpg_.jpeg",
+      "match_url": "https://www.amazon.com/gp/video/detail/B0HFDQGYWQ",
       "is_free": false,
       "stream_url": {
-        "Fastly Server": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/5qz8wmdome/out/v1/b9323e853dce427eac214b77bd48a204/cenc.mpd",
-        "Amazon Server": "https://otte.cache.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/5qz8wmdome/out/v1/b9323e853dce427eac214b77bd48a204/cenc.mpd",
-        "Cloudfront Server 1": "https://dash-ott.bia-cf.live.pv-cdn.net/pdx-nitro/live/clients/dash/enc/5qz8wmdome/out/v1/b9323e853dce427eac214b77bd48a204/cenc.mpd",
-        "Cloudfront Server 2": "https://hls-ott.bia-cf.live.pv-cdn.net/pdx-nitro/live/clients/dash/enc/5qz8wmdome/out/v1/b9323e853dce427eac214b77bd48a204/cenc.mpd"
+        "Original Server": "https://ABDJJP3AAAAAAAAMICBMCUSMM3PN7.ta.bia-cf.live.pv-cdn.net/$T$2D3RhEOhAQWhBFgkYzQ1OWU1YmItZDgxMS00NGM2LTgwYzQtNTNkZDc3NTIwODk5WJSnAWpwcmltZXZpZGVvBBpqoz4HBhpqj3eHA2pjbG91ZGZyb250Angpc3NpZDowM2E5N2IyMy0yZjljLTRmYmYtODJkMC0zYzdjYWU2MDc2NjMZATihBaECeDMvcWtzY2UyamNtcC9vdXQvdjEvYmU4NTVlZWJhY2I5NGQ0ZWJhNjFiOGU5ZWQ0ZDBjYjUZATyBYlVTWCCiyGMDBLKNPKH-PYVOwP14bzFG821A5a0XnYvgZKDNew/pdx-nitro/startover/clients/dash/manipulated-manifest-pdx-prod/enc/qksce2jcmp/out/v1/be855eebacb94d4eba61b8e9ed4d0cb5/effdf8d6-c4f2-44ff-981e-7c897c86db50-cenc.mpd"
       },
-      "drm_key": "d9623774ac5c8c351aafe97c5fe70267:5164e6d05164a2d65fa8fcc962aa4861"
+      "drm_key": "3a4bf76e5ec1e5beae2cffd4a95456c7:07a21400f5262b85c84032f54c504244"
+    },
+    {
+      "match_id": "B0H7JFYP51",
+      "title": "Leagues Cup Countdown",
+      "synopsis": "Leagues Cup Countdown",
+      "status": "LIVE",
+      "time": "LIVE NOW",
+      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.15d9b3f6-2a0b-4ade-ad5a-c2d37a2a36ae/4/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/a-f/appletvus/logos/channels-logo-white-stacked.png%7C0,0,1920,1080+0,0,1920,1080+1607,885,234,117_kv6e4ed7a60d36179896a92487d4bec652_SX624_FMjpg_.jpeg",
+      "match_url": "https://www.amazon.com/gp/video/detail/B0H7JFYP51",
+      "is_free": false,
+      "stream_url": {
+        "Original Server": "https://ABDJJP3AAAAAAAAMDHLD3AUJ24L7U.ta.bia-cf.live.pv-cdn.net/$T$2D3RhEOhAQWhBFgkYzQ1OWU1YmItZDgxMS00NGM2LTgwYzQtNTNkZDc3NTIwODk5WJSnAWpwcmltZXZpZGVvBBpqoz4IBhpqj3eIA2pjbG91ZGZyb250Angpc3NpZDpjNDg3MGE5NS1jZDc3LTQ2MDQtYTM4MS02YTc0ZGViNGVmYTcZATihBaECeDMvNDEyaXQ4Yjhzdy9vdXQvdjEvNmM2OGMyOWIzOWUzNGY0NmE0ZDNjMjcxN2VmOWExMmEZATyBYlVTWCA5WLa7KdsPyBmw1lDiYu3kNI3XueiP0o8JGlD5wxwo7Q/iad-nitro/startover/clients/dash/manipulated-manifest-iad-prod/enc/412it8b8sw/out/v1/6c68c29b39e34f46a4d3c2717ef9a12a/5e2e2c88-44dd-4592-a241-48689477c64e-cenc.mpd"
+      },
+      "drm_key": "14dc5917a7488a6563d485eb47b87e04:ee06fa98c51dd4bade0f8c71ffb0b783"
     },
     {
       "match_id": "B0HFF9R5PF",
@@ -50,27 +61,13 @@
       "synopsis": "Aug 26 - PTT Newport Beach",
       "status": "LIVE",
       "time": "LIVE NOW",
-      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.5a8bcfc4-7b91-42c8-abef-9c6f1e50aeb0/8/BOXART-16X9/en-US._UR1920,1080_SX624_FMpng_.png",
+      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.5a8bcfc4-7b91-42c8-abef-9c6f1e50aeb0/9/BOXART-16X9/en-US._UR1920,1080_SX624_FMpng_.png",
       "match_url": "https://www.amazon.com/gp/video/detail/B0HFSDC5X9",
       "is_free": false,
       "stream_url": {
         "Original Server": "https://live-pv-ta-enf.amazon.fastly-edge.com/$T$2D3RhEOhAQWhBFgkOWE2NWFkMDQtYzk4NS00OTZhLWE4NzQtYTkwMzY2M2FiNzFlWImmAWpwcmltZXZpZGVvBBpqovCzBhpqjyozA2ZmYXN0bHkCeClzc2lkOjI0ZGNiMjE2LTVhNmEtNDk4Yy1hN2Q3LTg0YzVlZjFkNzg1MxkBOKEFoQJ4My9waHFkdWRzZWRpL291dC92MS8yZDUxNGE2MGRhMGI0ZTVhODlhNTY2YjhiMzRjYjc2ZVggguS7q4XSzBSHRnvy5x3sIIv7Ar0nvrTKQ9XFljkiuCY/pdx-nitro/startover/clients/dash/manipulated-manifest-pdx-prod/enc/phqdudsedi/out/v1/2d514a60da0b4e5a89a566b8b34cb76e/53705818-c578-4fbd-977c-dfdb931a2c34-cenc.mpd"
       },
       "drm_key": "56b92668deb4f4c57d133f43b8c7ce1e:353416e3ab1992afb9b6270d18f8da6c"
-    },
-    {
-      "match_id": "B0HFDZ57QC",
-      "title": "Aug 26 - PTT Boise",
-      "synopsis": "Aug 26 - PTT Boise",
-      "status": "LIVE",
-      "time": "LIVE NOW",
-      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.c9cadbb2-ce2f-4f59-bbfb-9640e36786f8/9/BOXART-16X9/en-US._UR1920,1080_SX624_FMpng_.png",
-      "match_url": "https://www.amazon.com/gp/video/detail/B0HFDZ57QC",
-      "is_free": false,
-      "stream_url": {
-        "Original Server": "https://live-pv-ta.amazon.fastly-edge.com/$T$2D3RhEOhAQWhBFgkOWE2NWFkMDQtYzk4NS00OTZhLWE4NzQtYTkwMzY2M2FiNzFlWJCnAWpwcmltZXZpZGVvBBpqovCzBhpqjyozA2ZmYXN0bHkCeClzc2lkOmNmMjVmNWIwLTA0YzYtNDk2Ni1iYTg5LTgwZWE4MzdhYjcxYRkBOKEFoQJ4My8zbnRtY3Bnc3JtL291dC92MS8zNGQyMzYwZDNjYWM0MjhkODA5MTA2MWQxNzg0YzI4NhkBPIFiVVNYIDCQRWAFdOr9yUS0wlSczj5BToBPbdjz08k7E7gzP8xi/iad-nitro/startover/clients/dash/manipulated-manifest-iad-prod/enc/3ntmcpgsrm/out/v1/34d2360d3cac428d8091061d1784c286/0cb0dcd8-7821-4799-801b-85900cc5f134-cenc.mpd"
-      },
-      "drm_key": "66ab149de6bea5d317922744d7cc47c3:609cc5613f7e2a9bfecb6e60bf20cb04"
     }
   ]
 }
