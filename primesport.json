@@ -1,7 +1,7 @@
 {
   "HeaderInfo": {
     "PlaylistName": "Prime Video Free Sports",
-    "LastUpdate": "09:02 PM 02-09-2026",
+    "LastUpdate": "12:32 AM 03-09-2026",
     "Telegram": "https://t.me/livesportsplay",
     "Owner": "Md Sohanur Rahman Hady"
   },
@@ -28,21 +28,18 @@
       "drm_key": "2be100252a42be3a17d29c93e28eaacc:07c5e72df3602e9652dd06d839776e72"
     },
     {
-      "match_id": "B0HH48TR4B",
-      "title": "Sri Lanka vs. Indonesia",
-      "synopsis": "Sri Lanka vs. Indonesia",
+      "match_id": "B0HC8BP225",
+      "title": "Sep 2 - PTT Waco",
+      "synopsis": "Sep 2 - PTT Waco",
       "status": "LIVE",
       "time": "LIVE NOW",
-      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.d0569de6-5a92-4da5-ade2-e6ad770a1c07/6/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/a-f/freewithads/logos/channels-logo-white.png%7C0,0,1920,1080+0,0,1920,1080+1578,847,263,156_kv053498f62d21803ffcbf28da234cfe9f_SX624_FMjpg_.jpg",
-      "match_url": "https://www.amazon.com/gp/video/detail/B0HH48TR4B",
+      "cover_image": "https://images-na.ssl-images-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.50eaf63c-13c0-4ac7-90b0-e59542deb4c8/7/BOXART-16X9/en-US._UR1920,1080_SX624_FMpng_.png",
+      "match_url": "https://www.amazon.com/gp/video/detail/B0HC8BP225",
       "is_free": false,
       "stream_url": {
-        "Fastly Server": "https://otte.live.fly.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/tll6uwepxa/out/v1/a7f67cbb33df46539312956427343886/cenc.mpd",
-        "Amazon Server": "https://otte.cache.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/tll6uwepxa/out/v1/a7f67cbb33df46539312956427343886/cenc.mpd",
-        "Cloudfront Server 1": "https://dash-ott.bia-cf.live.pv-cdn.net/pdx-nitro/live/clients/dash/enc/tll6uwepxa/out/v1/a7f67cbb33df46539312956427343886/cenc.mpd",
-        "Cloudfront Server 2": "https://hls-ott.bia-cf.live.pv-cdn.net/pdx-nitro/live/clients/dash/enc/tll6uwepxa/out/v1/a7f67cbb33df46539312956427343886/cenc.mpd"
+        "Original Server": "https://ABDJGZBAAAAAAAAMCEAXBDLYYNR43.ta.bia-cf.live.pv-cdn.net/$T$2D3RhEOhAQWhBFgkYzQ1OWU1YmItZDgxMS00NGM2LTgwYzQtNTNkZDc3NTIwODk5WJSnAWpwcmltZXZpZGVvBBpqrB0lBhpqmFalA2pjbG91ZGZyb250Angpc3NpZDpiNDlkOGFlYi0zMjdlLTQ2ZTItOGU5OS02YWU1MzE2ZGY0NGYZATihBaECeDMvZmhuYWhtbXZ0ay9vdXQvdjEvMDY5YjJhMWI5MmQ0NGE3MWIyN2EzODNlYTc0ODFkMTMZATyBYlVTWCAueK1OQgKrrzb6HHM_i1O3EhbwcA--ub6lQ7e6ESj1lw/pdx-nitro/startover/clients/dash/manipulated-manifest-pdx-prod/enc/fhnahmmvtk/out/v1/069b2a1b92d44a71b27a383ea7481d13/dee28a98-ba9d-4256-9827-04b8f5e68665-cenc.mpd"
       },
-      "drm_key": "290e09c837da78d5cd961978d390515c:b748836c71e6a4ca68ef5b5652db6247"
+      "drm_key": "58440fc88246d80b859dc6cc96becff3:4054f23d56836bfe773be7c2e61c465e"
     },
     {
       "match_id": "B0HG6F1H15",
