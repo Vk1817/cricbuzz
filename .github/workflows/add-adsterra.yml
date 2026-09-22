@@ -1,0 +1,53 @@
+name: Add Adsterra ads
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  add-ads:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Insert Adsterra scripts
+        shell: python
+        run: |
+          from pathlib import Path
+
+          popunder = '<!-- Adsterra Popunder -->\n<script src="https://pl31462915.profitableratecpmnetwork.com/40/ee/21/40ee210334319601f257fb02c92d0f05.js"></script>'
+          social = '<!-- Adsterra Social Bar -->\n<script src="https://pl31462914.profitableratecpmnetwork.com/19/75/4a/19754a3a34ee72df39eaa03009f9a73f.js"></script>'
+
+          for path in Path('.').glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              changed = False
+
+              if '<!-- Adsterra Popunder -->' not in text and '</head>' in text:
+                  text = text.replace('</head>', popunder + '\n</head>', 1)
+                  changed = True
+
+              if '<!-- Adsterra Social Bar -->' not in text and '</body>' in text:
+                  text = text.replace('</body>', social + '\n</body>', 1)
+                  changed = True
+
+              if changed:
+                  path.write_text(text, encoding='utf-8')
+                  print('Updated', path)
+
+      - name: Commit changes and remove workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/add-adsterra.yml
+          git add '*.html' .github/workflows/add-adsterra.yml
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Add Adsterra popunder and social bar"
+          git push
